@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="sr-Latn"><head><meta charset="utf-8">
+<title>Carstvo Ukusa — Katalog 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=block&subset=latin-ext" rel="stylesheet">
+<style>:root {
+  --ink: #1E3328;
+  --ink-2: #2B4638;
+  --paper: #F6F1E7;
+  --paper-2: #ECE4D3;
+  --line: #D8CDB8;
+  --muted: #6E7A70;
+  --sage: #9CC3B1;
+  --terra: #B5663A;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Manrope", "Segoe UI", sans-serif;
+}
+
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #8a8a82; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-feature-settings: "lnum", "tnum";
+}
+@media screen {
+  body { padding: 24px 0; }
+  .page { margin: 0 auto 24px; box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+}
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  page-break-after: always;
+  break-after: page;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+
+/* ---------- korice ---------- */
+.cover, .back {
+  background:
+    radial-gradient(120% 70% at 50% 0%, #2A4A3A 0%, transparent 60%),
+    radial-gradient(90% 60% at 100% 100%, #243E31 0%, transparent 70%),
+    var(--ink);
+  color: var(--paper);
+}
+.frame {
+  position: absolute; inset: 9mm;
+  border: 0.35mm solid rgba(156,195,177,.45);
+  border-radius: 3mm;
+  pointer-events: none;
+}
+.frame::after {
+  content: ""; position: absolute; inset: 1.6mm;
+  border: 0.2mm solid rgba(156,195,177,.2);
+  border-radius: 2mm;
+}
+.cover { padding: 22mm 24mm 20mm; display: flex; flex-direction: column; align-items: center; }
+.cover-top {
+  display: flex; align-items: center; gap: 4mm;
+  font-size: 7.5pt; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--sage); font-weight: 600;
+}
+.cover-top .dot { width: 1.2mm; height: 1.2mm; border-radius: 50%; background: var(--sage); opacity: .7; }
+.cover-logo { width: 104mm; margin-top: 20mm; }
+.cover h1 {
+  margin-top: 14mm;
+  display: flex; align-items: baseline; gap: 5mm;
+  font-family: var(--serif); font-weight: 300;
+  font-variation-settings: "opsz" 144;
+  line-height: 1;
+}
+.cover h1 .k { font-style: italic; font-size: 60pt; letter-spacing: -.01em; }
+.cover h1 .y { font-size: 60pt; color: var(--sage); letter-spacing: -.02em; }
+.lede {
+  margin-top: 6mm; max-width: 120mm; text-align: center;
+  font-size: 9.5pt; line-height: 1.6; color: rgba(246,241,231,.72);
+}
+.toc {
+  list-style: none; margin-top: 18mm; width: 136mm;
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 12mm;
+}
+.toc li {
+  display: flex; align-items: baseline; gap: 3mm;
+  padding: 2.4mm 0; border-bottom: 0.2mm solid rgba(156,195,177,.22);
+  font-size: 9pt;
+}
+.toc .tn { font-family: var(--serif); font-style: italic; color: var(--sage); width: 6mm; }
+.toc .tt { flex: 1; font-weight: 500; }
+.toc .tp { font-size: 7pt; letter-spacing: .12em; text-transform: uppercase; color: rgba(246,241,231,.5); }
+.cover-bottom {
+  margin-top: auto; width: 100%;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: 0 4mm;
+}
+.lbl { display: block; font-size: 7pt; letter-spacing: .3em; text-transform: uppercase; color: var(--sage); font-weight: 600; margin-bottom: 1.5mm; }
+.phone { font-family: var(--serif); font-size: 22pt; color: var(--paper); text-decoration: none; font-weight: 400; letter-spacing: .01em; }
+.cover-seal { width: 32mm; height: 32mm; transform: rotate(-12deg); opacity: .95; }
+
+/* ---------- unutrašnje strane ---------- */
+.inner {
+  background: var(--paper);
+  padding: 13mm 17mm 12mm;
+  display: flex; flex-direction: column;
+}
+.inner::before { /* blagi ton papira */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(80% 50% at 100% 0%, rgba(156,195,177,.14), transparent 70%);
+}
+.runhead {
+  position: relative;
+  display: flex; align-items: center; gap: 5mm;
+  padding-bottom: 4mm; border-bottom: 0.25mm solid var(--line);
+  font-size: 7pt; letter-spacing: .28em; text-transform: uppercase; font-weight: 600; color: var(--muted);
+}
+.runhead img { height: 11mm; }
+.runhead em { font-style: normal; color: var(--terra); }
+.runhead .rh-phone { margin-left: auto; letter-spacing: .12em; color: var(--ink); }
+
+.sec { position: relative; margin-top: 9mm; }
+.sec-head { display: flex; align-items: flex-end; gap: 5mm; margin-bottom: 5mm; }
+.num {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: 40pt; line-height: .8; color: var(--sage);
+  font-variation-settings: "opsz" 144;
+}
+.sec-head h2 {
+  font-family: var(--serif); font-weight: 500; font-size: 23pt; line-height: 1;
+  letter-spacing: -.015em; font-variation-settings: "opsz" 72;
+}
+.sub { margin-top: 1.6mm; font-size: 8pt; color: var(--muted); font-style: italic; font-family: var(--serif); }
+.count {
+  margin-left: auto; margin-bottom: .8mm;
+  font-size: 6.5pt; letter-spacing: .22em; text-transform: uppercase; font-weight: 700;
+  color: var(--ink); border: 0.25mm solid var(--line); border-radius: 10mm; padding: 1.2mm 3mm;
+}
+
+.items {
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 11mm;
+  border-top: 0.35mm solid var(--ink);
+}
+.item {
+  padding: 3mm 0 3.1mm;
+  border-bottom: 0.2mm solid var(--line);
+  break-inside: avoid;
+}
+.name-row { display: flex; align-items: baseline; gap: 2mm; }
+.item h3 {
+  font-family: var(--serif); font-weight: 500; font-size: 10.6pt; line-height: 1.25;
+  letter-spacing: -.005em; font-variation-settings: "opsz" 24;
+}
+.lead { flex: 1; min-width: 4mm; border-bottom: 0.25mm dotted #B9AE98; transform: translateY(-1mm); }
+.price {
+  font-family: var(--serif); font-weight: 600; font-size: 11pt; white-space: nowrap;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.price small {
+  font-family: var(--sans); font-weight: 600; font-size: 5.8pt; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-left: 1.2mm;
+}
+.desc { margin-top: 1.1mm; font-size: 7.6pt; line-height: 1.5; color: var(--muted); padding-right: 16mm; }
+.tag {
+  display: inline-block; vertical-align: 1.6pt; margin-left: 2mm;
+  font-family: var(--sans); font-size: 5.6pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: #3E6E57; background: rgba(156,195,177,.32); border-radius: 10mm; padding: .7mm 2mm;
+}
+
+/* istaknute plate (predjelo) */
+.features { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+.feature {
+  position: relative; border-radius: 3.5mm; padding: 6mm 6mm 6.5mm;
+  background: var(--paper-2); border: 0.25mm solid var(--line);
+}
+.feature.lux { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.feature-top { display: flex; justify-content: space-between; align-items: baseline; }
+.kicker {
+  font-size: 6.5pt; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--terra);
+}
+.feature.lux .kicker { color: var(--sage); }
+.price.big { font-size: 17pt; font-weight: 500; }
+.feature.lux .price small { color: rgba(246,241,231,.6); }
+.feature h3 {
+  margin-top: 5mm; font-family: var(--serif); font-weight: 400; font-style: italic;
+  font-size: 17pt; line-height: 1.1; letter-spacing: -.01em; font-variation-settings: "opsz" 72;
+}
+.chips { list-style: none; margin-top: 4mm; display: flex; flex-wrap: wrap; gap: 1.4mm; }
+.chips li {
+  font-size: 7pt; line-height: 1; padding: 1.4mm 2.2mm; border-radius: 10mm;
+  border: 0.22mm solid var(--line); background: var(--paper);
+}
+.feature.lux .chips li { background: transparent; border-color: rgba(156,195,177,.4); color: rgba(246,241,231,.88); }
+
+.runfoot {
+  margin-top: auto; padding-top: 4mm;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 0.25mm solid var(--line);
+  font-size: 6.8pt; color: var(--muted); letter-spacing: .02em;
+}
+.pno { font-family: var(--serif); font-style: italic; font-size: 11pt; color: var(--ink); }
+
+/* ---------- zadnja korica ---------- */
+.back { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30mm; }
+.back-logo { width: 62mm; }
+.back-kicker {
+  margin-top: 16mm; font-size: 8pt; letter-spacing: .34em; text-transform: uppercase;
+  color: var(--sage); font-weight: 600;
+}
+.back-phone {
+  margin-top: 4mm; font-family: var(--serif); font-weight: 300; font-size: 44pt;
+  color: var(--paper); text-decoration: none; letter-spacing: -.01em;
+  font-variation-settings: "opsz" 144;
+}
+.back-note { margin-top: 6mm; font-size: 9pt; color: rgba(246,241,231,.65); max-width: 100mm; line-height: 1.6; }
+.back-seal { margin-top: 16mm; width: 30mm; height: 30mm; transform: rotate(-10deg); }
+
+/* poziv na porudžbinu (poslednja strana sa jelima) */
+.cta {
+  position: relative; margin-top: 10mm;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--ink); color: var(--paper);
+  border-radius: 3.5mm; padding: 7mm 9mm;
+}
+.cta-k { font-size: 7pt; letter-spacing: .3em; text-transform: uppercase; color: var(--sage); font-weight: 600; }
+.cta-phone {
+  display: block; margin-top: 2mm; font-family: var(--serif); font-weight: 300; font-size: 28pt;
+  color: var(--paper); text-decoration: none; font-variation-settings: "opsz" 144;
+}
+.cta-seal { width: 24mm; height: 24mm; transform: rotate(-10deg); }
+</style><script>// Raspoređuje prazan prostor strane na redove artikala, da svaka strana bude ravnomerno popunjena.
+(function () {
+  const MM = 96 / 25.4;
+  function layout() {
+    document.querySelectorAll('.page.inner').forEach(page => {
+      const foot = page.querySelector('.runfoot');
+      const blocks = page.querySelectorAll('.sec, .cta');
+      const last = blocks[blocks.length - 1];
+      const free = foot.getBoundingClientRect().top - last.getBoundingClientRect().bottom - 8 * MM;
+      if (free <= 0) return;
+      const secs = page.querySelectorAll('.sec');
+      let rows = 0;
+      page.querySelectorAll('.items').forEach(g => rows += Math.ceil(g.children.length / 2));
+      // deo prostora ide u razmak između sekcija, ostatak u redove
+      const gapExtra = Math.min(free * 0.25 / secs.length, 10 * MM);
+      const perRow = Math.min((free - gapExtra * secs.length) / Math.max(rows, 1), 6.5 * MM);
+      secs.forEach(s => s.style.marginTop = `calc(9mm + ${gapExtra}px)`);
+      page.querySelectorAll('.items .item').forEach(it => {
+        it.style.paddingTop = `calc(3mm + ${perRow / 2}px)`;
+        it.style.paddingBottom = `calc(3.1mm + ${perRow / 2}px)`;
+      });
+      const cta = page.querySelector('.cta');
+      if (cta) cta.style.marginTop = `calc(10mm + ${gapExtra}px)`;
+    });
+  }
+  document.addEventListener('DOMContentLoaded', () => document.fonts.ready.then(layout));
+})();
+</script></head>
+<body><div class="page cover">
+  <div class="frame"></div>
+  <div class="cover-top"><span>Ketering</span><span class="dot"></span><span>Katalog jela</span><span class="dot"></span><span>2026</span></div>
+  <img class="cover-logo" src="assets/logo-cream.png" alt="Carstvo Ukusa">
+  <h1><span class="k">Katalog</span><span class="y">2026</span></h1>
+  <p class="lede">Predjela, finger food, specijaliteti od mesa i ribe, salate i prilozi — za proslave, slave i poslovne događaje.</p>
+  <ol class="toc"><li><span class="tn">01</span><span class="tt">Predjelo</span><span class="tp">str. 02</span></li><li><span class="tn">02</span><span class="tt">Finger food</span><span class="tp">str. 02</span></li><li><span class="tn">03</span><span class="tt">Pecivo</span><span class="tp">str. 03</span></li><li><span class="tn">04</span><span class="tt">Specijaliteti od mesa</span><span class="tp">str. 03</span></li><li><span class="tn">05</span><span class="tt">Riblji specijalitet</span><span class="tp">str. 04</span></li><li><span class="tn">06</span><span class="tt">Sveže salate</span><span class="tp">str. 04</span></li><li><span class="tn">07</span><span class="tt">Kremaste salate</span><span class="tp">str. 05</span></li><li><span class="tn">08</span><span class="tt">Prilozi</span><span class="tp">str. 05</span></li></ol>
+  <div class="cover-bottom">
+    <div><span class="lbl">Porudžbine</span><a class="phone" href="tel:+381638216678">063/821-66-78</a></div>
+    <svg class="seal cover-seal" viewBox="0 0 200 200" aria-label="HACCP">
+  <defs>
+    <path id="cover-seal-top" d="M 31,100 A 69,69 0 0 1 169,100"/>
+    <path id="cover-seal-bot" d="M 16,100 A 84,84 0 0 0 184,100"/>
+  </defs>
+  <circle cx="100" cy="100" r="93" fill="none" stroke="#9CC3B1" stroke-width="5"/>
+  <circle cx="100" cy="100" r="61" fill="none" stroke="#9CC3B1" stroke-width="3.2"/>
+  <g fill="#9CC3B1" font-family="Barlow Condensed, sans-serif" font-weight="700" letter-spacing="1.2">
+    <text font-size="17"><textPath href="#cover-seal-top" startOffset="50%" text-anchor="middle">Hazard • Analysis</textPath></text>
+    <text font-size="17"><textPath href="#cover-seal-bot" startOffset="50%" text-anchor="middle">Critical • Control • Point</textPath></text>
+  </g>
+  <rect x="6" y="80" width="188" height="40" fill="#1E3328"/>
+  <text x="100" y="116" text-anchor="middle" fill="#9CC3B1" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="50" letter-spacing="2">HACCP</text>
+</svg>
+  </div>
+</div><div class="page inner">
+  <div class="runhead"><img src="assets/logo-ink.png" alt="Carstvo Ukusa"><span>Katalog <em>2026</em></span><span class="rh-phone">063/821-66-78</span></div>
+  <section class="sec">
+  <header class="sec-head"><span class="num">01</span><div><h2>Predjelo</h2><p class="sub">Hladne plate</p></div><span class="count">2 stavke</span></header>
+  <div class="features"><article class="feature lux">
+  <div class="feature-top"><span class="kicker">Lux</span><span class="price big">3.500<small>din/kg</small></span></div>
+  <h3>Mix predjelo lux</h3>
+  <ul class="chips"><li>beli kravlji sir</li><li>bajuval</li><li>brie</li><li>mocarela</li><li>gorgonzola</li><li>dimljeni kačkavalj</li><li>suvo meso</li><li>kulen</li><li>goveđa</li><li>zimska</li><li>biber blok</li><li>kobasica u parmezanu</li></ul>
+</article><article class="feature ">
+  <div class="feature-top"><span class="kicker">Standard</span><span class="price big">3.000<small>din/kg</small></span></div>
+  <h3>Mix predjelo standard</h3>
+  <ul class="chips"><li>edamer kačkavalj</li><li>beli kravlji sir</li><li>feta sir</li><li>zimska kobasica</li><li>kulen</li><li>suvo meso</li><li>suvi vrat</li></ul>
+</article></div>
+</section><section class="sec">
+  <header class="sec-head"><span class="num">02</span><div><h2>Finger food</h2><p class="sub">Zalogaji za koktel i proslave</p></div><span class="count">14 stavki</span></header>
+  <div class="items"><div class="item">
+  <div class="name-row"><h3>Kanapei mrsni lux</h3><span class="lead"></span><span class="price">2.500<small>din/kg</small></span></div>
+  <p class="desc">na bavarskoj kifli, sa različitim namazima i kulenom, zimskom kobasicom, suvim mesom, goveđom kobasicom, kobasicom u parmezanu, biber blokom</p>
+</div><div class="item">
+  <div class="name-row"><h3>Kanapei mrsni standard</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  <p class="desc">na bavarskoj kifli, sa različitim namazima i kulenom, zimskom kobasicom, suvim mesom, goveđom kobasicom</p>
+</div><div class="item">
+  <div class="name-row"><h3>Posni kanapei<span class="tag">posno</span></h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  <p class="desc">na bavarskoj kifli, sa različitim namazima i plodovima mora, lososom, inćunima</p>
+</div><div class="item">
+  <div class="name-row"><h3>Punjene korpice</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  <p class="desc">gorgonzola sos, kikiriki sos, ruska, urnebes, pileća, susam salata</p>
+</div><div class="item">
+  <div class="name-row"><h3>Rolati, slana torta</h3><span class="lead"></span><span class="price">1.500<small>din/kg</small></span></div>
+  <p class="desc">spanać, ajvar</p>
+</div><div class="item">
+  <div class="name-row"><h3>Snack sticks</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  <p class="desc">beli kravlji sir, cherry paradajz, suvo meso, crne masline, baby corn</p>
+</div><div class="item">
+  <div class="name-row"><h3>Brusketi 3 vrste</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  <p class="desc">dimljeni losos, caprese, gorgonzola i suvo meso</p>
+</div><div class="item">
+  <div class="name-row"><h3>Rolovani štapići sa pršutom</h3><span class="lead"></span><span class="price">3.500<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Trouglići sa kajmakom i suvim mesom</h3><span class="lead"></span><span class="price">3.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Mini burger</h3><span class="lead"></span><span class="price">1.500<small>din/kg</small></span></div>
+  <p class="desc">juneće meso, edamer, pavlaka, puterica</p>
+</div><div class="item">
+  <div class="name-row"><h3>Mini sendviči</h3><span class="lead"></span><span class="price">1.200<small>din/kg</small></span></div>
+  <p class="desc">šunka, rendani kačkavalj, pavlaka, puterica</p>
+</div><div class="item">
+  <div class="name-row"><h3>Sendvič u domaćoj kroasan kifli</h3><span class="lead"></span><span class="price">2.200<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Slane pohovane palačinke</h3><span class="lead"></span><span class="price">1.500<small>din/kg</small></span></div>
+  <p class="desc">pileći file, kačkavalj, gorgonzola sos</p>
+</div><div class="item">
+  <div class="name-row"><h3>Piletina u tortilji</h3><span class="lead"></span><span class="price">1.500<small>din/kg</small></span></div>
+  
+</div></div>
+</section>
+  
+  <div class="runfoot"><span>Cene su izražene u dinarima po kilogramu, osim gde je drugačije navedeno.</span><span class="pno">02</span></div>
+</div><div class="page inner">
+  <div class="runhead"><img src="assets/logo-ink.png" alt="Carstvo Ukusa"><span>Katalog <em>2026</em></span><span class="rh-phone">063/821-66-78</span></div>
+  <section class="sec">
+  <header class="sec-head"><span class="num">03</span><div><h2>Pecivo</h2><p class="sub">Domaće, iz naše kuhinje</p></div><span class="count">7 stavki</span></header>
+  <div class="items"><div class="item">
+  <div class="name-row"><h3>Naan bread</h3><span class="lead"></span><span class="price">1.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Somuni</h3><span class="lead"></span><span class="price">50<small>din/kom</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Domaće kiflice, projice sa sirom</h3><span class="lead"></span><span class="price">1.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Kroasan kifle</h3><span class="lead"></span><span class="price">1.500<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Zemičke sa peršunom i belim lukom</h3><span class="lead"></span><span class="price">1.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Mini pice</h3><span class="lead"></span><span class="price">1.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Domaće pite, gibanica sa sirom</h3><span class="lead"></span><span class="price">1.300<small>din/kg</small></span></div>
+  <p class="desc">pite sa sirom, mesom ili krompirom</p>
+</div></div>
+</section><section class="sec">
+  <header class="sec-head"><span class="num">04</span><div><h2>Specijaliteti od mesa</h2><p class="sub">Sa roštilja, iz sača i pušnice</p></div><span class="count">15 stavki</span></header>
+  <div class="items"><div class="item">
+  <div class="name-row"><h3>Roštilj standard</h3><span class="lead"></span><span class="price">1.800<small>din/kg</small></span></div>
+  <p class="desc">ćevapi, leskovački uštipci, rolovano belo meso, svinjski ražnjić, gurmanska kobasica, pileći file, batak na žaru</p>
+</div><div class="item">
+  <div class="name-row"><h3>Pileći ražnjići sa povrćem</h3><span class="lead"></span><span class="price">1.800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Dimljena vešalica</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Dimljeni vrat</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Dimljene butkice ispod sača</h3><span class="lead"></span><span class="price">1.800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Dimljeni batak</h3><span class="lead"></span><span class="price">1.900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Domaće kobasice, ćevapi, uštipci</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Svinjska rebra u BBQ sosu</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Medaljoni u sosu od pečuraka</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Piletina u sosu od kikirikija</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Piletina u gorgonzola sosu</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Karađorđeva šnicla</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Plava traka</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Bečka šnicla</h3><span class="lead"></span><span class="price">1.800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Pileći štapići u susamu</h3><span class="lead"></span><span class="price">1.800<small>din/kg</small></span></div>
+  
+</div></div>
+</section>
+  
+  <div class="runfoot"><span>Cene su izražene u dinarima po kilogramu, osim gde je drugačije navedeno.</span><span class="pno">03</span></div>
+</div><div class="page inner">
+  <div class="runhead"><img src="assets/logo-ink.png" alt="Carstvo Ukusa"><span>Katalog <em>2026</em></span><span class="rh-phone">063/821-66-78</span></div>
+  <section class="sec">
+  <header class="sec-head"><span class="num">05</span><div><h2>Riblji specijalitet</h2><p class="sub">Sa žara i iz tiganja</p></div><span class="count">6 stavki</span></header>
+  <div class="items"><div class="item">
+  <div class="name-row"><h3>Oslić orli / oslić na žaru</h3><span class="lead"></span><span class="price">1.200<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Skuša na žaru</h3><span class="lead"></span><span class="price">1.600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Pastrmka na žaru</h3><span class="lead"></span><span class="price">1.800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Dimljena pastrmka fileti</h3><span class="lead"></span><span class="price">2.800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Šaran šnicle</h3><span class="lead"></span><span class="price">2.200<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Panirana kod riba, panirane lignje</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div></div>
+</section><section class="sec">
+  <header class="sec-head"><span class="num">06</span><div><h2>Sveže salate</h2><p class="sub">Sezonsko povrće, spremljeno istog dana</p></div><span class="count">12 stavki</span></header>
+  <div class="items"><div class="item">
+  <div class="name-row"><h3>Paradajz salata</h3><span class="lead"></span><span class="price">600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Srpska salata</h3><span class="lead"></span><span class="price">600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Šopska salata</h3><span class="lead"></span><span class="price">600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Grčka salata</h3><span class="lead"></span><span class="price">600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Vitaminska salata</h3><span class="lead"></span><span class="price">700<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Mix zelene salate</h3><span class="lead"></span><span class="price">800<small>din/kg</small></span></div>
+  <p class="desc">lollo rosso, lollo bianco, iceberg, puterica</p>
+</div><div class="item">
+  <div class="name-row"><h3>Kupus salata</h3><span class="lead"></span><span class="price">600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Kiseli kupus<span class="tag">sezonski</span></h3><span class="lead"></span><span class="price">600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Cvekla</h3><span class="lead"></span><span class="price">600<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Cezar salata</h3><span class="lead"></span><span class="price">1.200<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Salata sa tunjevinom</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Salata sa pečurkama</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div></div>
+</section>
+  
+  <div class="runfoot"><span>Cene su izražene u dinarima po kilogramu, osim gde je drugačije navedeno.</span><span class="pno">04</span></div>
+</div><div class="page inner">
+  <div class="runhead"><img src="assets/logo-ink.png" alt="Carstvo Ukusa"><span>Katalog <em>2026</em></span><span class="rh-phone">063/821-66-78</span></div>
+  <section class="sec">
+  <header class="sec-head"><span class="num">07</span><div><h2>Kremaste salate</h2><p class="sub">Klasici svake trpeze</p></div><span class="count">10 stavki</span></header>
+  <div class="items"><div class="item">
+  <div class="name-row"><h3>Ruska salata<span class="tag">posna opcija</span></h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Pileća salata</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Susam salata</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Mimoza salata</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Šampinjoni salata<span class="tag">posna opcija</span></h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Urnebes salata</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Goveđa salata</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Kukuruz salata<span class="tag">posna opcija</span></h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Tunjevina salata<span class="tag">posno</span></h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Tartar sos</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div></div>
+</section><section class="sec">
+  <header class="sec-head"><span class="num">08</span><div><h2>Prilozi</h2><p class="sub">Topli dodaci glavnim jelima</p></div><span class="count">8 stavki</span></header>
+  <div class="items"><div class="item">
+  <div class="name-row"><h3>Pomfrit</h3><span class="lead"></span><span class="price">800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Grilovano povrće</h3><span class="lead"></span><span class="price">1.400<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Grilovane pečurke</h3><span class="lead"></span><span class="price">1.400<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Aromatizovani krompir</h3><span class="lead"></span><span class="price">900<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Pohovani kačkavalj</h3><span class="lead"></span><span class="price">2.000<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Pirinač sa povrćem</h3><span class="lead"></span><span class="price">800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Pekarski krompir</h3><span class="lead"></span><span class="price">800<small>din/kg</small></span></div>
+  
+</div><div class="item">
+  <div class="name-row"><h3>Krompir sa blitvom</h3><span class="lead"></span><span class="price">800<small>din/kg</small></span></div>
+  
+</div></div>
+</section>
+  <aside class="cta">
+  <div><p class="cta-k">Poručite svoj meni</p><a class="cta-phone" href="tel:+381638216678">063/821-66-78</a></div>
+  <svg class="seal cta-seal" viewBox="0 0 200 200" aria-label="HACCP">
+  <defs>
+    <path id="cta-seal-top" d="M 31,100 A 69,69 0 0 1 169,100"/>
+    <path id="cta-seal-bot" d="M 16,100 A 84,84 0 0 0 184,100"/>
+  </defs>
+  <circle cx="100" cy="100" r="93" fill="none" stroke="#9CC3B1" stroke-width="5"/>
+  <circle cx="100" cy="100" r="61" fill="none" stroke="#9CC3B1" stroke-width="3.2"/>
+  <g fill="#9CC3B1" font-family="Barlow Condensed, sans-serif" font-weight="700" letter-spacing="1.2">
+    <text font-size="17"><textPath href="#cta-seal-top" startOffset="50%" text-anchor="middle">Hazard • Analysis</textPath></text>
+    <text font-size="17"><textPath href="#cta-seal-bot" startOffset="50%" text-anchor="middle">Critical • Control • Point</textPath></text>
+  </g>
+  <rect x="6" y="80" width="188" height="40" fill="#1E3328"/>
+  <text x="100" y="116" text-anchor="middle" fill="#9CC3B1" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="50" letter-spacing="2">HACCP</text>
+</svg>
+</aside>
+  <div class="runfoot"><span>Cene su izražene u dinarima po kilogramu, osim gde je drugačije navedeno.</span><span class="pno">05</span></div>
+</div><div class="page back">
+  <div class="frame"></div>
+  <img class="back-logo" src="assets/logo-cream.png" alt="Carstvo Ukusa">
+  <p class="back-kicker">Poručite svoj meni</p>
+  <a class="back-phone" href="tel:+381638216678">063/821-66-78</a>
+  <p class="back-note">Sva jela pripremamo po HACCP standardu bezbednosti hrane.</p>
+  <svg class="seal back-seal" viewBox="0 0 200 200" aria-label="HACCP">
+  <defs>
+    <path id="back-seal-top" d="M 31,100 A 69,69 0 0 1 169,100"/>
+    <path id="back-seal-bot" d="M 16,100 A 84,84 0 0 0 184,100"/>
+  </defs>
+  <circle cx="100" cy="100" r="93" fill="none" stroke="#9CC3B1" stroke-width="5"/>
+  <circle cx="100" cy="100" r="61" fill="none" stroke="#9CC3B1" stroke-width="3.2"/>
+  <g fill="#9CC3B1" font-family="Barlow Condensed, sans-serif" font-weight="700" letter-spacing="1.2">
+    <text font-size="17"><textPath href="#back-seal-top" startOffset="50%" text-anchor="middle">Hazard • Analysis</textPath></text>
+    <text font-size="17"><textPath href="#back-seal-bot" startOffset="50%" text-anchor="middle">Critical • Control • Point</textPath></text>
+  </g>
+  <rect x="6" y="80" width="188" height="40" fill="#1E3328"/>
+  <text x="100" y="116" text-anchor="middle" fill="#9CC3B1" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="50" letter-spacing="2">HACCP</text>
+</svg>
+</div></body></html>
