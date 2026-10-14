@@ -1,6 +1,6 @@
+/* Katalog A4 — isti vizuelni jezik kao mobilni meni (docs/index.html, meni.css) */
 :root {
   --ink: #1E3328;
-  --ink-2: #2B4638;
   --paper: #F6F1E7;
   --paper-2: #ECE4D3;
   --line: #D8CDB8;
@@ -20,6 +20,7 @@ body {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   font-feature-settings: "lnum", "tnum";
+  line-height: 1.4;
 }
 @media screen {
   body { padding: 24px 0; }
@@ -36,193 +37,101 @@ body {
 }
 .page:last-child { page-break-after: auto; break-after: auto; }
 
-/* ---------- korice ---------- */
+/* ---------- korica = hero ---------- */
 .cover, .back {
-  background:
-    radial-gradient(120% 70% at 50% 0%, #2A4A3A 0%, transparent 60%),
-    radial-gradient(90% 60% at 100% 100%, #243E31 0%, transparent 70%),
-    var(--ink);
+  background: radial-gradient(120% 70% at 50% 0%, #2A4A3A 0%, transparent 60%), var(--ink);
   color: var(--paper);
+  text-align: center;
 }
-.frame {
-  position: absolute; inset: 9mm;
-  border: 0.35mm solid rgba(156,195,177,.45);
-  border-radius: 3mm;
-  pointer-events: none;
-}
-.frame::after {
-  content: ""; position: absolute; inset: 1.6mm;
-  border: 0.2mm solid rgba(156,195,177,.2);
-  border-radius: 2mm;
-}
-.cover { padding: 22mm 24mm 20mm; display: flex; flex-direction: column; align-items: center; }
-.cover-top {
-  display: flex; align-items: center; gap: 4mm;
-  font-size: 7.5pt; letter-spacing: .32em; text-transform: uppercase;
-  color: var(--sage); font-weight: 600;
-}
-.cover-top .dot { width: 1.2mm; height: 1.2mm; border-radius: 50%; background: var(--sage); opacity: .7; }
-.cover-logo { width: 104mm; margin-top: 20mm; }
+.cover { padding: 30mm 22mm 22mm; display: flex; flex-direction: column; align-items: center; }
+.cover-logo { width: 84mm; }
 .cover h1 {
-  margin-top: 14mm;
-  display: flex; align-items: baseline; gap: 5mm;
-  font-family: var(--serif); font-weight: 300;
+  margin-top: 12mm;
+  font-family: var(--serif); font-weight: 300; font-size: 52pt; line-height: 1;
   font-variation-settings: "opsz" 144;
-  line-height: 1;
 }
-.cover h1 .k { font-style: italic; font-size: 60pt; letter-spacing: -.01em; }
-.cover h1 .y { font-size: 60pt; color: var(--sage); letter-spacing: -.02em; }
-.lede {
-  margin-top: 6mm; max-width: 120mm; text-align: center;
-  font-size: 9.5pt; line-height: 1.6; color: rgba(246,241,231,.72);
+.cover h1 em { font-style: italic; }
+.lede { margin-top: 5mm; font-size: 10pt; color: rgba(246,241,231,.7); }
+.call {
+  display: inline-block; margin-top: 9mm;
+  padding: 4.5mm 9mm; border-radius: 99mm;
+  background: var(--sage); color: var(--ink);
+  font-weight: 700; font-size: 12.5pt; text-decoration: none;
 }
 .toc {
-  list-style: none; margin-top: 18mm; width: 136mm;
-  display: grid; grid-template-columns: 1fr 1fr; column-gap: 12mm;
+  list-style: none; margin-top: 22mm;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 3mm;
+  max-width: 150mm;
 }
 .toc li {
-  display: flex; align-items: baseline; gap: 3mm;
-  padding: 2.4mm 0; border-bottom: 0.2mm solid rgba(156,195,177,.22);
-  font-size: 9pt;
+  display: inline-flex; align-items: baseline; gap: 2.2mm;
+  padding: 2.6mm 4.5mm; border: 0.25mm solid rgba(246,241,231,.35); border-radius: 99mm;
+  font-size: 9.5pt; font-weight: 600; color: var(--paper);
 }
-.toc .tn { font-family: var(--serif); font-style: italic; color: var(--sage); width: 6mm; }
-.toc .tt { flex: 1; font-weight: 500; }
-.toc .tp { font-size: 7pt; letter-spacing: .12em; text-transform: uppercase; color: rgba(246,241,231,.5); }
+.toc .tn { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--sage); }
+.toc .tp { font-size: 7pt; letter-spacing: .1em; text-transform: uppercase; color: rgba(246,241,231,.5); font-weight: 600; }
 .cover-bottom {
   margin-top: auto; width: 100%;
-  display: flex; justify-content: space-between; align-items: flex-end;
-  padding: 0 4mm;
+  display: flex; justify-content: space-between; align-items: flex-end; text-align: left;
 }
 .lbl { display: block; font-size: 7pt; letter-spacing: .3em; text-transform: uppercase; color: var(--sage); font-weight: 600; margin-bottom: 1.5mm; }
-.phone { font-family: var(--serif); font-size: 22pt; color: var(--paper); text-decoration: none; font-weight: 400; letter-spacing: .01em; }
-.cover-seal { width: 32mm; height: 32mm; transform: rotate(-12deg); opacity: .95; }
+.phone { font-family: var(--serif); font-size: 20pt; color: var(--paper); text-decoration: none; }
+.cover-seal { width: 26mm; height: 26mm; opacity: .9; }
 
 /* ---------- unutrašnje strane ---------- */
 .inner {
   background: var(--paper);
-  padding: 13mm 17mm 12mm;
+  padding: 8mm 20mm 8mm;
   display: flex; flex-direction: column;
 }
-.inner::before { /* blagi ton papira */
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(80% 50% at 100% 0%, rgba(156,195,177,.14), transparent 70%);
-}
 .runhead {
-  position: relative;
-  display: flex; align-items: center; gap: 5mm;
-  padding-bottom: 4mm; border-bottom: 0.25mm solid var(--line);
-  font-size: 7pt; letter-spacing: .28em; text-transform: uppercase; font-weight: 600; color: var(--muted);
+  display: flex; align-items: center; gap: 4mm;
+  padding-bottom: 3mm; border-bottom: 0.25mm solid var(--line);
+  font-size: 7pt; letter-spacing: .24em; text-transform: uppercase; font-weight: 700; color: var(--muted);
 }
-.runhead img { height: 11mm; }
+.runhead img { height: 9mm; }
 .runhead em { font-style: normal; color: var(--terra); }
-.runhead .rh-phone { margin-left: auto; letter-spacing: .12em; color: var(--ink); }
+.runhead .rh-phone { margin-left: auto; letter-spacing: .1em; color: var(--ink); }
 
-.sec { position: relative; margin-top: 9mm; }
-.sec-head { display: flex; align-items: flex-end; gap: 5mm; margin-bottom: 5mm; }
+.sec { margin-top: 7mm; }
+.sec-head {
+  display: flex; align-items: flex-end; gap: 4mm;
+  padding-bottom: 2mm; border-bottom: 0.6mm solid var(--ink);
+}
 .num {
-  font-family: var(--serif); font-weight: 300; font-style: italic;
-  font-size: 40pt; line-height: .8; color: var(--sage);
-  font-variation-settings: "opsz" 144;
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: 26pt; line-height: .8; color: var(--sage);
 }
-.sec-head h2 {
-  font-family: var(--serif); font-weight: 500; font-size: 23pt; line-height: 1;
-  letter-spacing: -.015em; font-variation-settings: "opsz" 72;
-}
-.sub { margin-top: 1.6mm; font-size: 8pt; color: var(--muted); font-style: italic; font-family: var(--serif); }
-.count {
-  margin-left: auto; margin-bottom: .8mm;
-  font-size: 6.5pt; letter-spacing: .22em; text-transform: uppercase; font-weight: 700;
-  color: var(--ink); border: 0.25mm solid var(--line); border-radius: 10mm; padding: 1.2mm 3mm;
-}
+.sec-head h2 { font-family: var(--serif); font-weight: 500; font-size: 19pt; line-height: 1; }
+.sub { font-family: var(--serif); font-style: italic; font-size: 9pt; color: var(--muted); margin-top: 1.4mm; }
 
-.items {
-  display: grid; grid-template-columns: 1fr 1fr; column-gap: 11mm;
-  border-top: 0.35mm solid var(--ink);
-}
-.item {
-  padding: 3mm 0 3.1mm;
-  border-bottom: 0.2mm solid var(--line);
-  break-inside: avoid;
-}
-.name-row { display: flex; align-items: baseline; gap: 2mm; }
-.item h3 {
-  font-family: var(--serif); font-weight: 500; font-size: 10.6pt; line-height: 1.25;
-  letter-spacing: -.005em; font-variation-settings: "opsz" 24;
-}
-.lead { flex: 1; min-width: 4mm; border-bottom: 0.25mm dotted #B9AE98; transform: translateY(-1mm); }
-.price {
-  font-family: var(--serif); font-weight: 600; font-size: 11pt; white-space: nowrap;
-  font-variant-numeric: lining-nums tabular-nums;
-}
-.price small {
-  font-family: var(--sans); font-weight: 600; font-size: 5.8pt; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--muted); margin-left: 1.2mm;
-}
-.desc { margin-top: 1.1mm; font-size: 7.6pt; line-height: 1.5; color: var(--muted); padding-right: 16mm; }
+.items { display: block; }
+.item { padding: 1.8mm 0; border-bottom: 0.25mm solid var(--line); break-inside: avoid; }
+.name-row { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+.item h3 { font-family: var(--serif); font-weight: 500; font-size: 10pt; line-height: 1.25; }
+.price { flex: none; font-family: var(--serif); font-weight: 600; font-size: 10.5pt; white-space: nowrap; }
+.price small { font-family: var(--sans); font-weight: 600; font-size: 7pt; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-left: 1.2mm; }
+.desc { margin-top: .5mm; font-size: 7.8pt; line-height: 1.35; color: var(--muted); padding-right: 12mm; }
 .tag {
-  display: inline-block; vertical-align: 1.6pt; margin-left: 2mm;
-  font-family: var(--sans); font-size: 5.6pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: #3E6E57; background: rgba(156,195,177,.32); border-radius: 10mm; padding: .7mm 2mm;
+  display: inline-block; margin-left: 2.2mm; padding: .6mm 2.2mm; border-radius: 99mm;
+  background: var(--paper-2); color: var(--terra);
+  font-family: var(--sans); font-size: 6.5pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  vertical-align: middle;
 }
-
-/* istaknute plate (predjelo) */
-.features { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
-.feature {
-  position: relative; border-radius: 3.5mm; padding: 6mm 6mm 6.5mm;
-  background: var(--paper-2); border: 0.25mm solid var(--line);
-}
-.feature.lux { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.feature-top { display: flex; justify-content: space-between; align-items: baseline; }
-.kicker {
-  font-size: 6.5pt; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--terra);
-}
-.feature.lux .kicker { color: var(--sage); }
-.price.big { font-size: 17pt; font-weight: 500; }
-.feature.lux .price small { color: rgba(246,241,231,.6); }
-.feature h3 {
-  margin-top: 5mm; font-family: var(--serif); font-weight: 400; font-style: italic;
-  font-size: 17pt; line-height: 1.1; letter-spacing: -.01em; font-variation-settings: "opsz" 72;
-}
-.chips { list-style: none; margin-top: 4mm; display: flex; flex-wrap: wrap; gap: 1.4mm; }
-.chips li {
-  font-size: 7pt; line-height: 1; padding: 1.4mm 2.2mm; border-radius: 10mm;
-  border: 0.22mm solid var(--line); background: var(--paper);
-}
-.feature.lux .chips li { background: transparent; border-color: rgba(156,195,177,.4); color: rgba(246,241,231,.88); }
 
 .runfoot {
-  margin-top: auto; padding-top: 4mm;
+  margin-top: auto; padding-top: 3.5mm;
   display: flex; justify-content: space-between; align-items: center;
   border-top: 0.25mm solid var(--line);
-  font-size: 6.8pt; color: var(--muted); letter-spacing: .02em;
+  font-size: 7.5pt; color: var(--muted);
 }
 .pno { font-family: var(--serif); font-style: italic; font-size: 11pt; color: var(--ink); }
 
-/* ---------- zadnja korica ---------- */
-.back { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30mm; }
+/* ---------- zadnja korica = futer ---------- */
+.back { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30mm; }
 .back-logo { width: 62mm; }
-.back-kicker {
-  margin-top: 16mm; font-size: 8pt; letter-spacing: .34em; text-transform: uppercase;
-  color: var(--sage); font-weight: 600;
-}
-.back-phone {
-  margin-top: 4mm; font-family: var(--serif); font-weight: 300; font-size: 44pt;
-  color: var(--paper); text-decoration: none; letter-spacing: -.01em;
-  font-variation-settings: "opsz" 144;
-}
-.back-note { margin-top: 6mm; font-size: 9pt; color: rgba(246,241,231,.65); max-width: 100mm; line-height: 1.6; }
-.back-seal { margin-top: 16mm; width: 30mm; height: 30mm; transform: rotate(-10deg); }
-
-/* poziv na porudžbinu (poslednja strana sa jelima) */
-.cta {
-  position: relative; margin-top: 10mm;
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--ink); color: var(--paper);
-  border-radius: 3.5mm; padding: 7mm 9mm;
-}
-.cta-k { font-size: 7pt; letter-spacing: .3em; text-transform: uppercase; color: var(--sage); font-weight: 600; }
-.cta-phone {
-  display: block; margin-top: 2mm; font-family: var(--serif); font-weight: 300; font-size: 28pt;
-  color: var(--paper); text-decoration: none; font-variation-settings: "opsz" 144;
-}
-.cta-seal { width: 24mm; height: 24mm; transform: rotate(-10deg); }
+.back-note { margin-top: 12mm; font-size: 10pt; line-height: 1.6; color: rgba(246,241,231,.75); max-width: 110mm; }
+.back-note + .back-note { margin-top: 2mm; }
+.back .call { background: var(--paper); margin-top: 10mm; font-size: 14pt; }
+.back-seal { margin-top: 16mm; width: 26mm; height: 26mm; opacity: .9; }
+.back-web { margin-top: 10mm; font-size: 9pt; color: var(--sage); letter-spacing: .04em; }
