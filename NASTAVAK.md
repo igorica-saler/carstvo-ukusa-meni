@@ -8,12 +8,8 @@
 ## Stanje 2026-10-14
 - Dodato: „Sendvič u domaćoj kroasan kifli" 2.200 din/kg (Finger food), „Kroasan kifle" 1.500 din/kg (Pecivo).
 - Mobilni meni i QR kartica GOTOVI lokalno. QR pokazuje na `https://igorica-saler.github.io/carstvo-ukusa-meni/`.
-- ⏳ OTVORENO: objaviti meni — javni GitHub repo `carstvo-ukusa-meni` + Pages iz `/docs` (kreiranje javnog repoa je tražilo dozvolu korisnika):
-  ```
-  gh repo create carstvo-ukusa-meni --public --source=. --remote=origin --push
-  gh api -X POST repos/igorica-saler/carstvo-ukusa-meni/pages -f source[branch]=main -f source[path]=/docs
-  ```
-  Posle objave: otvoriti link na telefonu i skenirati karticu. Ako se promeni hosting/domen → promeniti `URL` u `kartica.py` i ponovo štampati kartice.
+- ✅ OBJAVLJENO 2026-10-14: javni repo `igorica-saler/carstvo-ukusa-meni` (remote `origin`), GitHub Pages iz `/docs`. Meni živ na `https://igorica-saler.github.io/carstvo-ukusa-meni/`, QR testiran. Izmena menija: `python build.py` → `git push`, Pages se osveži za ~1 min. Ako se promeni hosting/domen → promeniti `URL` u `kartica.py` i ponovo štampati kartice.
+- 2026-10-14: git repo bio oštećen (ref main i index nule, prekinut upis) — popravljen iz object store-a, ništa izgubljeno.
 
 ## Flajer (2026-10-14)
 - `python flajer.py` → `Flajer Carstvo Ukusa 2026.pdf` (pregled, 297×210, 2 strane); `python flajer.py --bleed` → `... za stampu (bleed 3mm).pdf` (303×216, crop + fold marke).
