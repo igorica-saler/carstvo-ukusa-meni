@@ -1,24 +1,90 @@
-# Flajer Carstvo Ukusa 2026: A4 vodoravno, roll fold na 3 panela (100 | 100 | 97 mm)
+# Flajer Carstvo Ukusa 2026 — A4 vodoravno, roll fold na 3 panela (100 | 100 | 97 mm)
+# Koncept „Vaga": sve je po kilogramu, pa je i dizajn po meri — skala vage na naslovnoj,
+# pravi milimetarski lenjir uz gornju ivicu unutrašnjosti, tabela „koliko treba" za planiranje.
 # Strana 1 (spolja): [flap 97 | zadnja korica 100 | prednja korica 100]
 # Strana 2 (unutra): [unutra-levo 100 | unutra-sredina 100 | unutra-desno 97]
 # Čitanje: korica → (unutra-levo + flap) → cela unutrašnjost 01→08
-import subprocess, sys
+import math
+import subprocess
+import sys
+
 from meni_data import *  # noqa
 
-TERRA, PAPER2, LINE, MUTED = "#B5663A", "#ECE4D3", "#D8CDB8", "#6E7A70"
+TERRA, PAPER2, LINE, MUTED = "#B8552E", "#EEE7D7", "#CFC4AE", "#5F6B63"
+HAIR = "rgba(30,51,40,.22)"
 BLEED = 3 if "--bleed" in sys.argv else 0
 QR_SVG = (ROOT / "docs" / "qr.svg").read_text(encoding="utf-8")
 
+# Orijentacione količine po osobi (grama) — PROVERITI SA VLASNIKOM pre štampe
+PLAN = [
+    ("Predjelo", 80, "g"),
+    ("Finger food", 120, "g"),
+    ("Meso ili riba", 250, "g"),
+    ("Prilozi", 150, "g"),
+    ("Salate", 150, "g"),
+    ("Pecivo", 2, "kom"),
+]
+GUESTS = (10, 30, 50)
 
+
+# ---------- vektorski elementi ----------
+def dial(fg, accent, bg):
+    """Skala kuhinjske vage 0–1 kg: podeok na svakih 10 g, kazaljka na 1 kg (gore)."""
+    cx = cy = 100
+    R = 94
+    out = []
+    for i in range(100):
+        a = math.radians(-90 + i * 3.6)
+        major, mid = i % 10 == 0, i % 5 == 0
+        L = 10 if major else (6.5 if mid else 3.2)
+        w = 1.5 if major else (0.9 if mid else 0.55)
+        x1, y1 = cx + R * math.cos(a), cy + R * math.sin(a)
+        x2, y2 = cx + (R - L) * math.cos(a), cy + (R - L) * math.sin(a)
+        out.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{fg}" stroke-width="{w}"/>')
+    labels = []
+    for k in range(10):
+        a = math.radians(-90 + k * 36)
+        r = R - 20
+        x, y = cx + r * math.cos(a), cy + r * math.sin(a)
+        txt = "1 kg" if k == 0 else f"{k * 100}"
+        labels.append(f'<text x="{x:.2f}" y="{y + 2.6:.2f}" text-anchor="middle" font-size="{8.5 if k else 9.5}" '
+                      f'font-weight="{700 if k == 0 else 500}">{txt}</text>')
+    return f'''<svg class="dial" viewBox="0 0 200 200" aria-label="Vaga, 1 kg">
+  <circle cx="{cx}" cy="{cy}" r="{R + 4.5}" fill="none" stroke="{fg}" stroke-width="1.1"/>
+  <circle cx="{cx}" cy="{cy}" r="{R + 1}" fill="{bg}"/>
+  {"".join(out)}
+  <g fill="{fg}" font-family="Schibsted Grotesk, sans-serif" letter-spacing=".02em">{"".join(labels)}</g>
+  <polygon points="{cx - 2.6},{cy} {cx + 2.6},{cy} {cx + 0.5},{cy - 69} {cx - 0.5},{cy - 69}" fill="{accent}"/>
+  <polygon points="{cx - 2.2},{cy} {cx + 2.2},{cy} {cx},{cy + 10}" fill="{accent}"/>
+  <circle cx="{cx}" cy="{cy}" r="4.6" fill="{accent}"/>
+  <circle cx="{cx}" cy="{cy}" r="1.6" fill="{bg}"/>
+</svg>'''
+
+
+def ruler(width_mm, fg):
+    """Pravi metrički lenjir: podeok svaki mm, broj na svaki cm. Štampa 1:1 → može se meriti."""
+    parts = []
+    for i in range(int(width_mm) + 1):
+        h = 3.2 if i % 10 == 0 else (2 if i % 5 == 0 else 1.1)
+        w = 0.22 if i % 10 == 0 else 0.14
+        parts.append(f'<line x1="{i}" y1="0" x2="{i}" y2="{h}" stroke="{fg}" stroke-width="{w}"/>')
+        if i % 10 == 0 and i < width_mm:
+            parts.append(f'<text x="{i + 0.9}" y="3.1" font-size="2.3" font-weight="500">{i // 10}</text>')
+    return (f'<svg class="ruler" viewBox="0 0 {width_mm} 4.2" width="{width_mm}mm" height="4.2mm" preserveAspectRatio="none">'
+            f'<g font-family="Schibsted Grotesk, sans-serif" fill="{fg}">{"".join(parts)}</g></svg>')
+
+
+# ---------- stavke ----------
 def row(name, desc, p, unit, tag):
     t = f'<i class="tag">{e(tag)}</i>' if tag else ""
     d = f'<p class="d">{e(desc)}</p>' if desc else ""
-    return f'<div class="it"><div class="r"><span class="n">{e(name)}{t}</span><span class="l"></span><span class="p">{price(p)}<small>{unit}</small></span></div>{d}</div>'
+    return f'<div class="it"><div class="r"><span class="n">{e(name)}{t}</span><span class="p">{price(p)}<small>{unit}</small></span></div>{d}</div>'
 
 
 def head(i, note=""):
     title, sub, items = SECTIONS[i]
-    return f'<header class="h"><span class="num">{i + 1:02d}</span><div><h2>{e(title)}</h2><p>{e(sub)}</p></div>{note}</header>'
+    return (f'<header class="h"><div class="hl"><span class="num">{i + 1:02d}</span><h2>{e(title)}</h2></div>'
+            f'<div class="hr"><p>{e(sub)}</p>{note}</div></header>')
 
 
 def sec(i):
@@ -29,9 +95,9 @@ def sec(i):
 def sec_predjelo():
     cards = ""
     for name, desc, p, unit, tag in SECTIONS[0][2]:
-        cards += (f'<div class="plate {tag.lower()}"><div class="r"><b>{e(name)}</b>'
-                  f'<span class="p">{price(p)}<small>{unit}</small></span></div><p>{e(desc)}</p></div>')
-    return f'<section class="s">{head(0)}{cards}</section>'
+        cards += (f'<div class="plate {tag.lower()}"><div class="pt"><b>{e(name)}</b><span class="p">{price(p)}<small>{unit}</small></span></div>'
+                  f'<p>{e(desc)}</p></div>')
+    return f'<section class="s">{head(0)}<div class="plates">{cards}</div></section>'
 
 
 def sec_kremaste():
@@ -39,9 +105,9 @@ def sec_kremaste():
     title, sub, items = SECTIONS[i]
     p0 = items[0][2]
     assert all(it[2] == p0 for it in items), "kremaste salate više nemaju istu cenu — vrati sec(6)"
-    names = ' <span class="sep">·</span> '.join(
+    names = ' <span class="sep">/</span> '.join(
         e(n) + (f'<i class="tag">{e(t)}</i>' if t else "") for n, _, _, _, t in items)
-    note = f'<span class="p">{price(p0)}<small>din/kg</small></span>'
+    note = f'<span class="p big">{price(p0)}<small>din/kg</small></span>'
     return f'<section class="s">{head(i, note)}<p class="flow">{names}</p></section>'
 
 
@@ -49,148 +115,173 @@ def panel(cls, inner):
     return f'<div class="panel {cls}">{inner}</div>'
 
 
+def plan_table():
+    hdr = "".join(f"<th>{g}</th>" for g in GUESTS)
+    rows = ""
+    for name, per, unit in PLAN:
+        cells = ""
+        for g in GUESTS:
+            tot = per * g
+            if unit == "g":
+                kg = tot / 1000
+                txt = f"{kg:g}".replace(".", ",") + " kg"
+            else:
+                txt = f"{tot} kom"
+            cells += f"<td>{txt}</td>"
+        rows += f'<tr><th scope="row">{e(name)}<small>{per} {unit} po osobi</small></th>{cells}</tr>'
+    return f'<table class="plan"><thead><tr><th>Gostiju</th>{hdr}</tr></thead><tbody>{rows}</tbody></table>'
+
+
 # ---------- spolja ----------
 front = panel("front", f'''
-  <div class="frame"></div>
-  <div class="kick"><span>Ketering</span><i></i><span>Katalog jela</span><i></i><span>2026</span></div>
-  <img class="logo" src="assets/logo-cream.png" alt="Carstvo Ukusa">
-  <h1>Trpeza<br><em>po vašoj</em><br>meri.</h1>
-  <p class="lede">Predjela, finger food, meso, riba, salate i prilozi — za slave, proslave i poslovne događaje. Sve po kilogramu: vi birate koliko.</p>
-  <div class="bottom"><div><span class="lbl">Porudžbine</span><a class="tel" href="tel:{PHONE_TEL}">{PHONE}</a></div>{seal(SAGE, INK, "seal seal-front")}</div>
+  <div class="kick"><span>Ketering</span><span>Katalog jela</span><span>2026</span></div>
+  <div class="dialwrap">{dial(INK, TERRA, PAPER)}<img class="dial-logo" src="assets/logo-ink.png" alt="Carstvo Ukusa"></div>
+  <h1>Trpeza<br>po vašoj<br><em>meri.</em></h1>
+  <p class="lede">Predjela, finger food, meso, riba, salate i prilozi — sve po kilogramu. Vi odredite koliko, mi odmerimo i spremimo.</p>
+  <div class="bottom"><div><span class="lbl">Porudžbine</span><a class="tel" href="tel:{PHONE_TEL}">{PHONE}</a></div><span class="lbl r">Slave · Proslave<br>Poslovni događaji</span></div>
 ''')
 
 back = panel("back", f'''
-  <div class="frame"></div>
   <img class="logo-s" src="assets/logo-cream.png" alt="Carstvo Ukusa">
-  <div class="mid"><p class="bk">Ceo meni na telefonu</p>
-  <div class="qrbox">{QR_SVG}</div>
-  <p class="hint">Uperite kameru u kod —<br>bez aplikacije, na iPhone-u i Androidu.</p></div>
-  <div class="bottom"><div><span class="lbl">Porudžbine</span><a class="tel" href="tel:{PHONE_TEL}">{PHONE}</a></div></div>
-  <p class="fine">Sva jela pripremamo po HACCP standardu bezbednosti hrane. Cene su izražene u dinarima po kilogramu, osim gde je drugačije navedeno.</p>
+  <div class="mid">
+    <p class="bk">Ceo meni na telefonu</p>
+    <div class="qrbox">{QR_SVG}</div>
+    <p class="hint">Uperite kameru u kod. Bez aplikacije,<br>na iPhone-u i Androidu.</p>
+  </div>
+  <div class="bbot">
+    <div class="bline"><span class="lbl">Porudžbine</span><a class="tel" href="tel:{PHONE_TEL}">{PHONE}</a></div>
+    <div class="fine"><div>{seal(PAPER, INK, "seal seal-back")}</div><p>Sva jela pripremamo po HACCP standardu bezbednosti hrane. Cene su u dinarima po kilogramu, osim gde je drugačije navedeno, i važe za 2026. godinu.</p></div>
+  </div>
 ''')
 
 flap = panel("flap", f'''
-  <p class="fk">Kako radimo</p>
-  <h3>Sve je<br>po kilogramu.</h3>
-  <p class="ft">Umesto porcija i paketa, naš meni je cenovnik po kilogramu. Sastavite trpezu od onoga što volite, u količini koja vam treba — za 10 ili za 100 gostiju.</p>
+  <p class="fk">Vodič za planiranje</p>
+  <h3>Koliko<br>treba?</h3>
+  <p class="ft">Orijentaciono, po osobi. Za tačan broj gostiju i prilike pozovite nas — odmerićemo zajedno.</p>
+  {plan_table()}
   <ol class="steps">
     <li><b>Izaberite jela</b><span>iz osam odeljaka ovog menija</span></li>
     <li><b>Pozovite nas</b><span>{PHONE} — dogovorimo količine i termin</span></li>
     <li><b>Mi spremamo</b><span>sveže, po HACCP standardu bezbednosti hrane</span></li>
   </ol>
-  <p class="occ"><b>Za svaku priliku</b>Slave · Krštenja · Rođendani<br>Venčanja · Poslovni događaji</p>
   <div class="legend"><i class="tag">posno</i><span>posna jela i posne opcije su označene</span></div>
-  <div class="fseal">{seal(INK, PAPER2, "seal seal-flap")}</div>
 ''')
 
 # ---------- unutra ----------
-left = panel("in airy", sec_predjelo() + sec(1))
+left = panel("in first", sec_predjelo() + sec(1))
 mid = panel("in", sec(2) + sec(3) + sec(4))
 right = panel("in narrow", sec(5) + sec_kremaste() + sec(7)
-              + f'<p class="foot">Cene u dinarima po kilogramu, osim gde je drugačije navedeno. · {PHONE}</p>')
+              + f'<p class="foot">Cene u dinarima po kilogramu, osim gde je drugačije navedeno. <b style="white-space:nowrap">Porudžbine {PHONE}</b></p>')
 
 W, H = 297, 210
 B = BLEED
 css = f'''
 @page {{ size: {W + 2 * B}mm {H + 2 * B}mm; margin: 0; }}
 * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-body {{ font-family: "Manrope", sans-serif; color: {INK}; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-feature-settings: "lnum", "tnum"; background: #777; }}
+body {{ font-family: "Schibsted Grotesk", sans-serif; color: {INK}; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  font-feature-settings: "lnum", "kern"; background: #777; }}
+.tel {{ font-feature-settings: "lnum", "tnum"; }}
 .sheet {{ position: relative; width: {W + 2 * B}mm; height: {H + 2 * B}mm; overflow: hidden; page-break-after: always; background: {PAPER}; }}
 .sheet:last-child {{ page-break-after: auto; }}
 .panel {{ position: absolute; top: 0; height: {H + 2 * B}mm; padding-top: {B}mm; padding-bottom: {B}mm; overflow: hidden; }}
-/* spolja: flap | back | front  — krajnji paneli idu u bleed */
 .flap  {{ left: 0; width: {97 + B}mm; padding-left: {B}mm; }}
 .back  {{ left: {B + 97}mm; width: 100mm; }}
 .front {{ left: {B + 197}mm; width: {100 + B}mm; padding-right: {B}mm; }}
-/* unutra: levo | sredina | desno(97) */
 .sheet.inside .panel:nth-child(1) {{ left: 0; width: {100 + B}mm; padding-left: {B}mm; }}
 .sheet.inside .panel:nth-child(2) {{ left: {B + 100}mm; width: 100mm; }}
 .sheet.inside .panel:nth-child(3) {{ left: {B + 200}mm; width: {97 + B}mm; padding-right: {B}mm; }}
 
-/* karirani stolnjak — fina tekstura (originalni motiv) */
-.gingham {{ position: absolute; inset: 0; pointer-events: none;
-  background-image: repeating-linear-gradient(0deg, rgba(156,195,177,.09) 0 5mm, transparent 5mm 14mm), repeating-linear-gradient(90deg, rgba(156,195,177,.09) 0 5mm, transparent 5mm 14mm); }}
-.gingham-dark {{ position: absolute; inset: 0; pointer-events: none;
-  background-image: repeating-linear-gradient(0deg, rgba(246,241,231,.035) 0 5mm, transparent 5mm 14mm), repeating-linear-gradient(90deg, rgba(246,241,231,.035) 0 5mm, transparent 5mm 14mm); }}
+h1, h2, h3, .n, .plate b, .flow, .tel, .num, .steps b {{ font-family: "Newsreader", serif; }}
+.lbl, .kick, .fk, .bk {{ font-size: 6pt; letter-spacing: .28em; text-transform: uppercase; font-weight: 700; }}
 
-/* ---- korice ---- */
-.front, .back {{ color: {PAPER}; background: radial-gradient(120% 60% at 50% 0%, #2A4A3A 0%, transparent 60%), {INK}; display: flex; flex-direction: column; align-items: center; text-align: center; }}
-.front {{ padding: {12 + B}mm {10 + B}mm {10 + B}mm 10mm; }}
-.back {{ padding: {12 + B}mm 10mm {10 + B}mm; }}
-.frame {{ position: absolute; inset: {6 + B}mm; border: 0.3mm solid rgba(156,195,177,.45); border-radius: 2.5mm; }}
-.front .frame {{ left: 6mm; right: {6 + B}mm; }} .back .frame {{ left: 6mm; right: 6mm; }}
-.frame::after {{ content: ""; position: absolute; inset: 1.4mm; border: 0.18mm solid rgba(156,195,177,.2); border-radius: 1.6mm; }}
-.kick {{ display: flex; align-items: center; gap: 2.6mm; font-size: 6.2pt; letter-spacing: .3em; text-transform: uppercase; color: {SAGE}; font-weight: 600; }}
-.kick i {{ width: 1mm; height: 1mm; border-radius: 50%; background: {SAGE}; opacity: .7; }}
-.front .logo {{ width: 58mm; margin-top: 14mm; }}
-.front h1 {{ margin-top: 12mm; font-family: "Fraunces", serif; font-weight: 300; font-variation-settings: "opsz" 144; font-size: 31pt; line-height: 1.02; letter-spacing: -.01em; }}
-.front h1 em {{ font-style: italic; color: {SAGE}; }}
-.lede {{ margin-top: 6mm; font-size: 7.4pt; line-height: 1.6; color: rgba(246,241,231,.72); max-width: 72mm; }}
-.bottom {{ margin-top: auto; width: 100%; display: flex; justify-content: space-between; align-items: flex-end; text-align: left; padding: 0 2mm; }}
-.lbl {{ display: block; font-size: 6pt; letter-spacing: .3em; text-transform: uppercase; color: {SAGE}; font-weight: 600; margin-bottom: 1mm; }}
-.tel {{ font-family: "Fraunces", serif; font-size: 17pt; color: {PAPER}; text-decoration: none; white-space: nowrap; }}
-.seal-front {{ width: 24mm; height: 24mm; transform: rotate(-12deg); }}
-.back .logo-s {{ width: 34mm; margin-top: 6mm; }}
+/* ---- prednja korica: vaga ---- */
+.front {{ padding: {11 + B}mm {10 + B}mm {10 + B}mm 11mm; display: flex; flex-direction: column; }}
+.kick {{ display: flex; justify-content: space-between; color: {INK}; border-bottom: 0.5mm solid {INK}; padding-bottom: 2.2mm; }}
+.dialwrap {{ position: relative; width: 74mm; height: 74mm; margin: 9mm auto 0; }}
+.dial {{ width: 100%; height: 100%; display: block; }}
+.dial-logo {{ position: absolute; left: 50%; top: 57%; width: 17mm; transform: translateX(-50%); }}
+.front h1 {{ margin-top: 10mm; font-weight: 400; font-variation-settings: "opsz" 72; font-size: 33pt; line-height: .96; letter-spacing: -.02em; }}
+.front h1 em {{ font-style: italic; color: {TERRA}; }}
+.lede {{ margin-top: 5mm; font-size: 7.6pt; line-height: 1.55; color: {MUTED}; max-width: 70mm; }}
+.bottom {{ margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; border-top: 0.5mm solid {INK}; padding-top: 2.6mm; }}
+.lbl {{ display: block; color: {TERRA}; margin-bottom: 1mm; }}
+.lbl.r {{ text-align: right; color: {INK}; line-height: 1.6; margin: 0; font-weight: 600; letter-spacing: .18em; }}
+.tel {{ font-size: 16.5pt; font-weight: 500; color: inherit; text-decoration: none; white-space: nowrap; letter-spacing: -.01em; line-height: 1; }}
+
+/* ---- zadnja korica: QR ---- */
+.back {{ background: {INK}; color: {PAPER}; padding: {11 + B}mm 10mm {10 + B}mm; display: flex; flex-direction: column; align-items: center; text-align: center; }}
+.back .logo-s {{ width: 36mm; margin-top: 2mm; }}
 .back .mid {{ margin: auto 0; display: flex; flex-direction: column; align-items: center; }}
-.bk {{ margin-top: 0; font-size: 6.2pt; letter-spacing: .3em; text-transform: uppercase; color: {SAGE}; font-weight: 600; }}
-.qrbox {{ margin-top: 4mm; width: 46mm; height: 46mm; padding: 4mm; background: {PAPER}; border-radius: 2.5mm; }}
+.bk {{ color: {SAGE}; }}
+.qrbox {{ margin-top: 4mm; width: 50mm; height: 50mm; padding: 3.5mm; background: {PAPER}; }}
 .qrbox svg {{ width: 100%; height: 100%; display: block; }}
 .hint {{ margin-top: 4mm; font-size: 7pt; line-height: 1.5; color: rgba(246,241,231,.72); }}
-.back .bottom {{ justify-content: center; text-align: center; margin-top: 0; }}
-.fine {{ margin-top: 6mm; font-size: 5.6pt; line-height: 1.5; color: rgba(246,241,231,.5); max-width: 70mm; }}
+.bbot {{ width: 100%; }}
+.bline {{ text-align: left; border-top: 0.4mm solid rgba(246,241,231,.45); padding-top: 2.6mm; }}
+.bline .lbl {{ color: {SAGE}; }}
+.fine {{ margin-top: 5mm; display: flex; gap: 3mm; align-items: center; text-align: left; }}
+.fine p {{ font-size: 5.6pt; line-height: 1.5; color: rgba(246,241,231,.6); }}
+.seal-back {{ width: 15mm; height: 15mm; flex: none; opacity: .85; }}
 
-/* ---- flap (kako radimo) ---- */
-.flap {{ background: {PAPER2}; padding-top: {14 + B}mm; padding-right: 10mm; padding-bottom: {10 + B}mm; padding-left: {11 + B}mm; display: flex; flex-direction: column; }}
-.fk {{ font-size: 6.2pt; letter-spacing: .3em; text-transform: uppercase; color: {TERRA}; font-weight: 700; }}
-.flap h3 {{ margin-top: 4mm; font-family: "Fraunces", serif; font-weight: 300; font-variation-settings: "opsz" 144; font-size: 24pt; line-height: 1.02; }}
-.ft {{ margin-top: 5mm; font-size: 7.6pt; line-height: 1.6; color: #3d4a42; }}
-.steps {{ list-style: none; counter-reset: k; margin-top: 8mm; }}
-.steps li {{ counter-increment: k; display: grid; grid-template-columns: 9mm 1fr; column-gap: 2mm; padding: 3.2mm 0; border-top: 0.2mm solid {LINE}; }}
-.steps li::before {{ content: counter(k, decimal-leading-zero); font-family: "Fraunces", serif; font-style: italic; font-size: 14pt; color: {SAGE}; line-height: 1; grid-row: 1 / span 2; }}
-.steps b {{ display: block; font-family: "Fraunces", serif; font-weight: 500; font-size: 9.5pt; }}
-.steps span {{ display: block; font-size: 6.8pt; color: {MUTED}; margin-top: .6mm; }}
-.occ {{ margin-top: 7mm; font-family: "Fraunces", serif; font-weight: 500; font-size: 8.6pt; line-height: 1.6; color: {INK}; }}
-.occ b {{ display: block; font-family: "Manrope", sans-serif; font-weight: 700; font-size: 6.2pt; letter-spacing: .3em; text-transform: uppercase; color: {TERRA}; margin-bottom: 1.5mm; }}
-.legend {{ margin-top: 5mm; display: flex; align-items: center; gap: 2mm; font-size: 6.6pt; color: {MUTED}; }}
-.fseal {{ margin-top: auto; display: flex; justify-content: flex-end; }}
-.seal-flap {{ width: 20mm; height: 20mm; transform: rotate(8deg); opacity: .9; }}
+/* ---- flap: koliko treba ---- */
+.flap {{ background: {PAPER2}; padding-top: {12 + B}mm; padding-right: 9mm; padding-bottom: {10 + B}mm; padding-left: {10 + B}mm; display: flex; flex-direction: column; }}
+.fk {{ color: {TERRA}; }}
+.flap h3 {{ margin-top: 3mm; font-weight: 400; font-variation-settings: "opsz" 72; font-size: 27pt; line-height: .96; letter-spacing: -.02em; }}
+.ft {{ margin-top: 4mm; font-size: 7.2pt; line-height: 1.5; color: {MUTED}; }}
+.plan {{ width: 100%; border-collapse: collapse; margin-top: 5mm; font-size: 7.2pt; }}
+.plan th, .plan td {{ text-align: right; padding: 1.7mm 0 1.6mm; border-top: 0.18mm solid {HAIR}; vertical-align: baseline; white-space: nowrap; }}
+.plan thead th {{ font-size: 5.6pt; letter-spacing: .14em; text-transform: uppercase; color: {TERRA}; border-top: 0; padding-top: 0; font-weight: 700; }}
+.plan thead th:first-child {{ text-align: left; }}
+.plan tbody th {{ text-align: left; font-family: "Newsreader", serif; font-weight: 500; font-size: 8.2pt; }}
+.plan tbody th small {{ display: block; font-family: "Schibsted Grotesk", sans-serif; font-weight: 400; font-size: 5.4pt; color: {MUTED}; margin-top: .3mm; }}
+.plan td {{ font-weight: 600; font-size: 7.6pt; padding-left: 2mm; }}
+.plan td:last-child {{ color: {TERRA}; }}
+.plan tbody tr:last-child td, .plan tbody tr:last-child th {{ border-bottom: 0.45mm solid {INK}; }}
+.steps {{ list-style: none; counter-reset: k; margin-top: 7mm; }}
+.steps li {{ counter-increment: k; display: grid; grid-template-columns: 8mm 1fr; column-gap: 1.5mm; padding: 2.4mm 0; border-top: 0.18mm solid {HAIR}; }}
+.steps li:first-child {{ border-top: 0; padding-top: 0; }}
+.steps li::before {{ content: counter(k, decimal-leading-zero); font-family: "Newsreader", serif; font-style: italic; font-size: 13pt; color: {TERRA}; line-height: 1; grid-row: 1 / span 2; }}
+.steps b {{ display: block; font-weight: 500; font-size: 9pt; }}
+.steps span {{ display: block; font-size: 6.6pt; color: {MUTED}; margin-top: .5mm; }}
+.legend {{ margin-top: 7mm; display: flex; align-items: center; gap: 2mm; font-size: 6.4pt; color: {MUTED}; }}
 
-/* ---- unutra ---- */
-.in {{ background: {PAPER}; padding-top: {7.5 + B}mm; padding-bottom: {7 + B}mm; padding-left: 8mm; padding-right: 7mm; }}
+/* ---- unutra: ledger ---- */
+.in {{ background: {PAPER}; padding-top: {10 + B}mm; padding-bottom: {7 + B}mm; padding-left: 8mm; padding-right: 7mm; }}
 .sheet.inside .panel:nth-child(1) {{ padding-left: {8 + B}mm; }}
 .sheet.inside .panel:nth-child(3) {{ padding-right: {8 + B}mm; }}
-.sheet.inside .panel:nth-child(2) {{ border-left: 0.18mm solid {LINE}; border-right: 0.18mm solid {LINE}; }}
+.ruler {{ position: absolute; left: {B}mm; top: {B + 4}mm; }}
 .s {{ position: relative; }}
-.s + .s {{ margin-top: 3.6mm; }}
-.h {{ display: flex; align-items: flex-end; gap: 2.4mm; padding-bottom: 1.4mm; border-bottom: 0.45mm solid {INK}; margin-bottom: .6mm; }}
-.h .num {{ font-family: "Fraunces", serif; font-style: italic; font-size: 16pt; line-height: .78; color: {SAGE}; }}
-.h h2 {{ font-family: "Fraunces", serif; font-weight: 500; font-size: 11.5pt; line-height: 1; letter-spacing: -.005em; }}
-.h p {{ font-family: "Fraunces", serif; font-style: italic; font-size: 6.6pt; color: {MUTED}; margin-top: 1mm; }}
-.h > .p {{ margin-left: auto; align-self: flex-end; }}
-.it {{ padding: .95mm 0 .95mm; }}
-.airy .it {{ padding: 1.4mm 0; }}
-.airy .s + .s {{ margin-top: 5mm; }}
-.airy .plate {{ margin-top: 2.4mm; padding: 2.8mm 3mm; }}
-.r {{ display: flex; align-items: baseline; gap: 1.5mm; }}
-.n {{ font-family: "Fraunces", serif; font-weight: 500; font-size: 7.7pt; line-height: 1.15; }}
-.l {{ flex: 1; border-bottom: 0.18mm dotted rgba(30,51,40,.35); transform: translateY(-0.9mm); min-width: 3mm; }}
-.p {{ font-family: "Fraunces", serif; font-weight: 600; font-size: 8pt; white-space: nowrap; }}
-.p small {{ font-family: "Manrope", sans-serif; font-weight: 600; font-size: 4.6pt; letter-spacing: .05em; text-transform: uppercase; color: {MUTED}; margin-left: .8mm; }}
-.d {{ font-size: 5.7pt; line-height: 1.35; color: {MUTED}; margin-top: .4mm; padding-right: 4mm; }}
-.tag {{ display: inline-block; font-style: normal; font-family: "Manrope", sans-serif; font-weight: 700; font-size: 4.6pt; letter-spacing: .08em; text-transform: uppercase; color: {TERRA}; background: {PAPER2}; padding: .3mm 1.3mm; border-radius: 2mm; margin-left: 1.4mm; vertical-align: middle; }}
-.plate {{ margin-top: 1.8mm; padding: 2.2mm 2.8mm 2.4mm; border-radius: 2mm; background: {PAPER2}; }}
-.plate.lux {{ background: {INK}; color: {PAPER}; }}
-.plate .r {{ justify-content: space-between; }}
-.plate b {{ font-family: "Fraunces", serif; font-weight: 500; font-style: italic; font-size: 9pt; }}
-.plate p {{ margin-top: 1mm; font-size: 5.7pt; line-height: 1.4; opacity: .8; }}
-.plate.lux .p small {{ color: {SAGE}; }}
-.flow {{ font-family: "Fraunces", serif; font-weight: 500; font-size: 7.7pt; line-height: 1.65; margin-top: 1.2mm; }}
-.sep {{ color: {SAGE}; padding: 0 .4mm; }}
-.foot {{ position: absolute; left: 8mm; right: {8 + B}mm; bottom: {7 + B}mm; font-size: 5.6pt; color: {MUTED}; }}
+.s + .s {{ margin-top: 3.4mm; }}
+.h {{ display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 1mm; border-bottom: 0.55mm solid {INK}; margin-bottom: .4mm; }}
+.hl {{ display: flex; align-items: baseline; gap: 1.6mm; }}
+.num {{ font-style: italic; font-size: 19pt; line-height: .75; color: {TERRA}; font-weight: 400; letter-spacing: -.02em; }}
+.h h2 {{ font-weight: 500; font-size: 12pt; line-height: .9; letter-spacing: -.012em; font-variation-settings: "opsz" 36; }}
+.hr {{ text-align: right; }}
+.hr p {{ font-size: 5.6pt; letter-spacing: .12em; text-transform: uppercase; color: {MUTED}; font-weight: 600; max-width: 34mm; line-height: 1.3; }}
+.hr .big {{ display: block; margin-top: .8mm; font-size: 10pt; }}
+.it {{ padding: .78mm 0; border-top: 0.16mm solid {HAIR}; }}
+.it:first-of-type {{ border-top: 0; }}
+.r {{ display: flex; justify-content: space-between; align-items: baseline; gap: 2mm; }}
+.n {{ font-weight: 500; font-size: 8pt; line-height: 1.15; font-variation-settings: "opsz" 14; }}
+.p {{ font-weight: 700; font-size: 7.6pt; white-space: nowrap; letter-spacing: -.01em; }}
+.p small {{ font-weight: 500; font-size: 4.6pt; letter-spacing: .06em; text-transform: uppercase; color: {MUTED}; margin-left: .7mm; }}
+.d {{ font-size: 5.8pt; line-height: 1.35; color: {MUTED}; margin-top: .35mm; padding-right: 10mm; }}
+.tag {{ display: inline-block; font-style: normal; font-family: "Schibsted Grotesk", sans-serif; font-weight: 700; font-size: 4.5pt; letter-spacing: .1em; text-transform: uppercase; color: {TERRA}; border: 0.18mm solid {TERRA}; padding: .25mm 1mm .15mm; margin-left: 1.4mm; vertical-align: .3mm; line-height: 1; }}
+.first .it {{ padding: 1.35mm 0; }}
+.first .n {{ font-size: 8.6pt; }}
+.first .d {{ font-size: 5.9pt; }}
+.plates {{ margin-top: 1.2mm; }}
+.plate {{ padding: 2.4mm 0 2.6mm; border-top: 0.16mm solid {HAIR}; }}
+.plate:first-child {{ border-top: 0; }}
+.pt {{ display: flex; justify-content: space-between; align-items: baseline; }}
+.plate b {{ font-weight: 500; font-style: italic; font-size: 11pt; letter-spacing: -.01em; }}
+.plate .p {{ font-size: 10pt; }}
+.plate.lux b {{ color: {TERRA}; }}
+.plate p {{ margin-top: 1.2mm; font-size: 6.2pt; line-height: 1.4; color: {MUTED}; padding-right: 6mm; }}
+.flow {{ font-weight: 500; font-size: 8pt; line-height: 1.75; margin-top: 1.6mm; font-variation-settings: "opsz" 14; }}
+.sep {{ color: {TERRA}; padding: 0 .3mm; font-weight: 300; }}
+.foot {{ position: absolute; left: 8mm; right: {8 + B}mm; bottom: {7 + B}mm; font-size: 5.6pt; color: {MUTED}; border-top: 0.16mm solid {HAIR}; padding-top: 1.4mm; }}
 
-.spine {{ position: absolute; top: 0; bottom: 0; left: {B + 197 - 1.2}mm; width: 2.4mm; background: {TERRA}; }}
-
-/* oznake za sečenje i savijanje (samo bleed verzija) */
 .mark {{ position: absolute; background: #000; }}
 '''
 
@@ -217,16 +308,17 @@ def fold_marks(xs):
 
 
 doc = f'''<!doctype html><html lang="sr-Latn"><head><meta charset="utf-8"><title>Carstvo Ukusa — flajer 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=block&subset=latin-ext" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Barlow+Condensed:wght@700;800&display=block&subset=latin-ext" rel="stylesheet">
 <style>{css}</style></head><body>
-<div class="sheet outside">{flap}{back}{front}<div class="gingham-dark"></div><div class="spine"></div>{marks()}{fold_marks([97, 197])}</div>
-<div class="sheet inside">{left}{mid}{right}<div class="gingham"></div>{marks()}{fold_marks([100, 200])}</div>
+<div class="sheet outside">{flap}{back}{front}{marks()}{fold_marks([97, 197])}</div>
+<div class="sheet inside">{left}{mid}{right}{ruler(W, INK)}{marks()}{fold_marks([100, 200])}</div>
 </body></html>'''
 
 out = ROOT / "flajer.html"
 out.write_text(doc, encoding="utf-8")
 chrome = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 pdf = ROOT / ("Flajer Carstvo Ukusa 2026 - za stampu (bleed 3mm).pdf" if B else "Flajer Carstvo Ukusa 2026.pdf")
-subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--virtual-time-budget=15000",
+subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--virtual-time-budget=20000",
                 "--run-all-compositor-stages-before-draw", f"--print-to-pdf={pdf}", out.as_uri()], check=True, capture_output=True)
 print("PDF:", pdf)
