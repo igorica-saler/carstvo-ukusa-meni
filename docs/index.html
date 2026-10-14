@@ -39,6 +39,28 @@ footer { background:var(--ink); color:rgba(246,241,231,.75); text-align:center; 
 footer p + p { margin-top:6px; }
 footer .call { background:var(--paper); }
 .pdf { display:block; margin-top:16px; color:var(--sage); font-size:13px; }
+
+/* štampa / PDF katalog: ista stranica na A4 */
+@media print {
+  @page { size:A4; margin:0; }
+  body { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .nav, .pdf { display:none; }
+  .hero { padding:26mm 20mm 24mm; }
+  .hero img { width:64mm; }
+  .hero h1 { font-size:44pt; }
+  .hero p { font-size:10.5pt; }
+  .call { font-size:12pt; padding:4.5mm 9mm; }
+  main { max-width:none; padding:2mm 20mm 12mm; }
+  section { padding-top:11mm; }
+  section header { break-after:avoid; }
+  li { break-inside:avoid; }
+  .name { font-size:11.5pt; }
+  .price { font-size:12pt; }
+  .price small { font-size:7pt; }
+  .desc { font-size:8.5pt; }
+  .tag { font-size:7pt; }
+  footer { break-before:page; padding:40mm 20mm; font-size:10pt; min-height:297mm; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+}
 </style></head>
 <body>
 <header class="hero">

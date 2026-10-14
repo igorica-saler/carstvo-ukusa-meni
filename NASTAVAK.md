@@ -1,10 +1,10 @@
 # Carstvo Ukusa — katalog 2026 i QR meni
 
 ## Kako se gradi
-- `python build.py` — iz liste `SECTIONS` pravi `katalog.html` → `Katalog Carstvo Ukusa 2026 - novi dizajn.pdf` (A4, 6 strana) i mobilni meni `docs/index.html` (+ `docs/katalog.pdf`, `docs/logo.png`).
+- `python build.py` — iz liste `SECTIONS` pravi mobilni meni `docs/index.html` (stil u `meni.css`), pa TU ISTU stranicu štampa u `Katalog Carstvo Ukusa 2026 - novi dizajn.pdf` (A4, kopija u `docs/katalog.pdf`). Katalog i QR meni su identični po konstrukciji; razlike samo pod `@media print` u `meni.css`.
 - `python kartica.py` — QR kod za `URL` → `docs/qr.svg`, `docs/qr.png` i `QR kartica za sto (4 x A6).pdf` (A4 list, 4 kartice za sečenje).
 - Izmena cene/jela: samo u `SECTIONS` u `meni_data.py`, pa sva tri skripta.
-- Veliki A4 katalog (2026-10-14) je prebačen na isti vizuelni jezik kao mobilni meni: jedna kolona, red naziv/cena bez vođica, opis ispod, oznake kao pilule, korica = hero (logo, „Meni 2026", dugme za poziv, sadržaj kao pilule), zadnja = futer. Stil u `katalog.css`, raspored po stranama u `PAGES` u `build.py` (01–02 | 03–04 | 05–06 | 07–08). Strane 2 i 3 su pune do vrha — ako se dodaju jela, menjati `PAGES` ili zbijati `.item` padding u `katalog.css`. `raspored.js` ravnomerno popunjava ostatak strane.
+- 2026-10-14: stari samostalni generator kataloga (`katalog.html`, `katalog.css`, `raspored.js`, korice sa sadržajem, dve kolone) uklonjen na zahtev korisnika — u git istoriji do commita 067e080.
 
 ## Stanje 2026-10-14
 - Dodato: „Sendvič u domaćoj kroasan kifli" 2.200 din/kg (Finger food), „Kroasan kifle" 1.500 din/kg (Pecivo).
