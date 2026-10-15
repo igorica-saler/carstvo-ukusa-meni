@@ -15,11 +15,11 @@ HAIR = "rgba(30,51,40,.22)"
 BLEED = 3 if "--bleed" in sys.argv else 0
 QR_SVG = (ROOT / "docs" / "qr.svg").read_text(encoding="utf-8")
 
-# Orijentacione količine po osobi (grama) — PROVERITI SA VLASNIKOM pre štampe
+# Orijentacione količine po osobi (grama) — PROVERITI SA VLASNIKOM pre štampe (meso/riba 350 g potvrdio vlasnik 2026-10-15)
 PLAN = [
     ("Predjelo", 80, "g"),
     ("Finger food", 120, "g"),
-    ("Meso ili riba", 250, "g"),
+    ("Meso ili riba", 350, "g"),
     ("Prilozi", 150, "g"),
     ("Salate", 150, "g"),
     ("Pecivo", 2, "kom"),
@@ -161,9 +161,15 @@ flap = panel("flap", f'''
   {plan_table()}
   <ol class="steps">
     <li><b>Izaberite jela</b><span>iz osam odeljaka ovog menija</span></li>
-    <li><b>Pozovite nas</b><span>{PHONE} — dogovorimo količine i termin</span></li>
+    <li><b>Pozovite ili pišite nam</b><span>{PHONE} — dogovorimo količine i termin</span></li>
     <li><b>Mi spremamo</b><span>sveže, po HACCP standardu bezbednosti hrane</span></li>
   </ol>
+  <dl class="contact">
+    <dt>Mejl</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
+    <dt>Instagram</dt><dd><a href="{INSTAGRAM_URL}">{INSTAGRAM}</a></dd>
+    <dt>Facebook</dt><dd><a href="{FACEBOOK_URL}">{FACEBOOK}</a></dd>
+    <dt>Web</dt><dd><a href="{SITE_URL}">{SITE}</a></dd>
+  </dl>
   <div class="legend"><i class="tag">posno</i><span>posna jela i posne opcije su označene</span></div>
 ''')
 
@@ -243,7 +249,12 @@ h1, h2, h3, .n, .plate b, .flow, .tel, .num, .steps b {{ font-family: "Newsreade
 .steps li::before {{ content: counter(k, decimal-leading-zero); font-family: "Newsreader", serif; font-style: italic; font-size: 13pt; color: {TERRA}; line-height: 1; grid-row: 1 / span 2; }}
 .steps b {{ display: block; font-weight: 500; font-size: 9pt; }}
 .steps span {{ display: block; font-size: 6.6pt; color: {MUTED}; margin-top: .5mm; }}
-.legend {{ margin-top: 7mm; display: flex; align-items: center; gap: 2mm; font-size: 6.4pt; color: {MUTED}; }}
+.contact {{ margin-top: 5mm; display: grid; grid-template-columns: 13mm 1fr; column-gap: 1.5mm; row-gap: 0; border-top: 0.45mm solid {INK}; padding-top: 2.2mm; }}
+.contact dt {{ font-size: 5.2pt; letter-spacing: .14em; text-transform: uppercase; color: {TERRA}; font-weight: 700; align-self: baseline; padding-top: 1mm; }}
+.contact dd {{ font-family: "Newsreader", serif; font-weight: 500; font-size: 8.2pt; line-height: 1.15; padding: .6mm 0 .7mm; border-top: 0.18mm solid {HAIR}; font-variation-settings: "opsz" 14; }}
+.contact dd:first-of-type {{ border-top: 0; }}
+.contact a {{ color: inherit; text-decoration: none; }}
+.legend {{ margin-top: 5mm; display: flex; align-items: center; gap: 2mm; font-size: 6.4pt; color: {MUTED}; }}
 
 /* ---- unutra: ledger ---- */
 .in {{ background: {PAPER}; padding-top: {10 + B}mm; padding-bottom: {7 + B}mm; padding-left: 8mm; padding-right: 7mm; }}

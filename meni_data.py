@@ -4,6 +4,13 @@ import html, pathlib
 ROOT = pathlib.Path(__file__).parent
 PHONE = "063/821-66-78"
 PHONE_TEL = "+381638216678"
+EMAIL = "carstvo.ukusa@gmail.com"
+SITE = "www.carstvoukusa.rs"
+SITE_URL = "https://www.carstvoukusa.rs"
+INSTAGRAM = "@carstvoukusa"
+INSTAGRAM_URL = "https://www.instagram.com/carstvoukusa/"
+FACEBOOK = "CarstvoUkusaCatering"
+FACEBOOK_URL = "https://www.facebook.com/CarstvoUkusaCatering/"
 
 # (naziv, opis, cena, jedinica, oznaka)
 KG, KOM = "din/kg", "din/kom"

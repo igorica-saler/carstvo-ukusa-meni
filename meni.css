@@ -30,6 +30,12 @@ footer { background:var(--ink); color:rgba(246,241,231,.75); text-align:center; 
 footer p + p { margin-top:6px; }
 footer .call { background:var(--paper); }
 .pdf { display:block; margin-top:16px; color:var(--sage); font-size:13px; }
+.links { display:flex; flex-wrap:wrap; justify-content:center; gap:6px 18px; margin-top:18px; font-size:13px; }
+.links a { color:var(--sage); text-decoration:none; white-space:nowrap; }
+.hero .links { margin-top:20px; }
+.write { margin-top:22px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; color:var(--sage); }
+footer .write + .links { margin-top:10px; }
+footer .links a { color:var(--paper); }
 
 /* štampa / PDF katalog: ista stranica na A4 */
 @media print {
@@ -41,6 +47,9 @@ footer .call { background:var(--paper); }
   .hero h1 { font-size:44pt; }
   .hero p { font-size:10.5pt; }
   .call { font-size:12pt; padding:4.5mm 9mm; }
+  .links { font-size:9.5pt; gap:2mm 7mm; margin-top:7mm; }
+  .write { font-size:8pt; margin-top:9mm; }
+  footer .write + .links { margin-top:3mm; }
   main { max-width:none; padding:2mm 20mm 12mm; }
   section { padding-top:11mm; }
   section header { break-after:avoid; }
