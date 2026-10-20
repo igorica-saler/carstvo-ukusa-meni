@@ -3,6 +3,8 @@
 ## Kako se gradi
 - `python build.py` — iz liste `SECTIONS` pravi mobilni meni `docs/index.html` (stil u `meni.css`), pa TU ISTU stranicu štampa u `Katalog Carstvo Ukusa 2026 - novi dizajn.pdf` (A4, kopija u `docs/katalog.pdf`). Katalog i QR meni su identični po konstrukciji; razlike samo pod `@media print` u `meni.css`.
 - `python kartica.py` — QR kod za `URL` → `docs/qr.svg`, `docs/qr.png` i `QR kartica za sto (4 x A6).pdf` (A4 list, 4 kartice za sečenje).
+- Isti `kartica.py` pravi i **QR karticu za Google recenzije** (2026-10-20): `REVIEW_URL` = `search.google.com/local/writereview?placeid=ChIJl4OPG_x-WkcR3blpMtc2mq8` (Place ID Google profila „Carstvo Ukusa, Hercegovačka 37", izveden iz Maps feature id-a `0x475a7efc1b8f8397:0xaf9a36d73269b9dd`, link proveren u browseru) → `docs/qr-recenzije.svg/png` i `QR kartica Google recenzije (4 x A6).pdf`. Varijante su u rečniku `CARDS`; kartica recenzija ima klasu `rev` (manji logo i QR, jer ima zvezdice + 3 reda teksta — inače preliva telefon).
+- Na Google profilu stoji sajt `carstvoukusa.com` i telefon 013 314825 — vlasnik treba da promeni sajt na `carstvoukusa.rs` u Google Business profilu (nije urađeno).
 - Izmena cene/jela: samo u `SECTIONS` u `meni_data.py`, pa sva tri skripta.
 - 2026-10-14: stari samostalni generator kataloga (`katalog.html`, `katalog.css`, `raspored.js`, korice sa sadržajem, dve kolone) uklonjen na zahtev korisnika — u git istoriji do commita 067e080.
 
