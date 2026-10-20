@@ -34,3 +34,5 @@
   `https://carstvoukusa.rs/meni/` (lokalni print iz `file://` ne preusmerava). GitHub Pages meni je sada samo most — izvor
   cena za sajt ostaje `meni_data.py` (`npm run menu` u sajtu).
 - Štampane kartice/flajeri pre ovog datuma nose stari QR — rade preko preusmerenja, ali za novu štampu koristiti nove PDF-ove.
+- 2026-10-20: `build.py` kopira katalog PDF i u `C:\dev\carstvo-ukusarontend\public\katalog-carstvo-ukusa-2026.pdf`
+  (dugme „Preuzmi jelovnik (PDF)" na sajtu /meni/). Posle izmene menija: `python build.py` → u sajtu `npm run build` + prenos `out/`.
