@@ -68,7 +68,7 @@ subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-foot
                 f"--print-to-pdf={pdf}", index.as_uri()], check=True, capture_output=True)
 shutil.copy(pdf, WEB / "katalog.pdf")
 # Isti PDF se nudi i na sajtu (dugme „Preuzmi jelovnik (PDF)" na /meni/) — kopiraj ako repo sajta postoji.
-SITE_PDF = pathlib.Path(r"C:\dev\carstvo-ukusarontend\public\katalog-carstvo-ukusa-2026.pdf")
+SITE_PDF = pathlib.Path(r"C:/dev/carstvo-ukusa/frontend/public/katalog-carstvo-ukusa-2026.pdf")
 if SITE_PDF.parent.exists():
     shutil.copy(pdf, SITE_PDF)
     print("SAJT:", SITE_PDF, "(posle toga: npm run build + prenos out/ na server)")
