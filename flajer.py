@@ -147,9 +147,10 @@ back = panel("back", f'''
     <p class="bk">Ceo meni na telefonu</p>
     <div class="qrbox">{QR_SVG}</div>
     <p class="hint">Uperite kameru u kod. Bez aplikacije,<br>na iPhone-u i Androidu.</p>
+    <p class="site">{SITE}</p>
   </div>
   <div class="bbot">
-    <div class="bline"><span class="lbl">Porudžbine</span><a class="tel" href="tel:{PHONE_TEL}">{PHONE}</a></div>
+    <div class="bline"><span class="lbl">Porudžbine</span><a class="tel" href="tel:{PHONE_TEL}">{PHONE}</a><span class="web">{SITE} · {EMAIL}</span></div>
     <div class="fine"><div>{seal(PAPER, INK, "seal seal-back")}</div><p>Sva jela pripremamo po HACCP standardu bezbednosti hrane. Cene su u dinarima po kilogramu, osim gde je drugačije navedeno, i važe za 2026. godinu.</p></div>
   </div>
 ''')
@@ -222,6 +223,8 @@ h1, h2, h3, .n, .plate b, .flow, .tel, .num, .steps b {{ font-family: "Newsreade
 .qrbox {{ margin-top: 4mm; width: 50mm; height: 50mm; padding: 3.5mm; background: {PAPER}; }}
 .qrbox svg {{ width: 100%; height: 100%; display: block; }}
 .hint {{ margin-top: 4mm; font-size: 7pt; line-height: 1.5; color: rgba(246,241,231,.72); }}
+.site {{ margin-top: 3mm; font-family: "Newsreader", serif; font-size: 12.5pt; color: {PAPER}; letter-spacing: .01em; }}
+.web {{ display: block; margin-top: 1.6mm; font-size: 6.8pt; color: rgba(246,241,231,.8); letter-spacing: .02em; }}
 .bbot {{ width: 100%; }}
 .bline {{ text-align: left; border-top: 0.4mm solid rgba(246,241,231,.45); padding-top: 2.6mm; }}
 .bline .lbl {{ color: {SAGE}; }}

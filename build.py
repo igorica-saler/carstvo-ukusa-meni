@@ -40,8 +40,9 @@ web = f'''<!doctype html>
   <img src="logo.png" alt="Carstvo Ukusa">
   <h1><em>Meni</em> 2026</h1>
   <p>Ketering · predjela, finger food, meso, riba, salate i prilozi</p>
+  <p class="site"><a href="{SITE_URL}">{SITE}</a></p>
   <a class="call" href="tel:{PHONE_TEL}">Pozovite {PHONE}</a>
-  <p class="links"><a href="mailto:{EMAIL}">{EMAIL}</a><a href="{INSTAGRAM_URL}">Instagram {INSTAGRAM}</a><a href="{FACEBOOK_URL}">Facebook {FACEBOOK}</a><a href="{SITE_URL}">{SITE}</a></p>
+  <p class="links"><a href="mailto:{EMAIL}">{EMAIL}</a><a href="{INSTAGRAM_URL}">Instagram {INSTAGRAM}</a><a href="{FACEBOOK_URL}">Facebook {FACEBOOK}</a></p>
 </header>
 <nav class="nav"><div>{nav}</div></nav>
 <main>{secs}</main>
@@ -49,8 +50,9 @@ web = f'''<!doctype html>
   <p>Cene su izražene u dinarima po kilogramu, osim gde je drugačije navedeno.</p>
   <p>Sva jela pripremamo po HACCP standardu bezbednosti hrane.</p>
   <a class="call" href="tel:{PHONE_TEL}">Poručite · {PHONE}</a>
+  <p class="site"><a href="{SITE_URL}">{SITE}</a></p>
   <p class="write">Ili nam pišite</p>
-  <p class="links"><a href="mailto:{EMAIL}">{EMAIL}</a><a href="{INSTAGRAM_URL}">Instagram {INSTAGRAM}</a><a href="{FACEBOOK_URL}">Facebook {FACEBOOK}</a><a href="{SITE_URL}">{SITE}</a></p>
+  <p class="links"><a href="mailto:{EMAIL}">{EMAIL}</a><a href="{INSTAGRAM_URL}">Instagram {INSTAGRAM}</a><a href="{FACEBOOK_URL}">Facebook {FACEBOOK}</a></p>
   <a class="pdf" href="katalog.pdf">Katalog u PDF-u</a>
 </footer>
 </body></html>'''

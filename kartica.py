@@ -5,6 +5,7 @@ import qrcode, qrcode.constants
 ROOT = pathlib.Path(__file__).parent
 URL = "https://carstvoukusa.rs/meni/"  # živi sajt od 2026-10-20 (ranije GitHub Pages)
 PHONE = "063/821-66-78"
+SITE = "carstvoukusa.rs"
 INK, PAPER, SAGE = "#1E3328", "#F6F1E7", "#9CC3B1"
 
 qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H, border=0)
@@ -27,6 +28,7 @@ card = f'''<div class="card">
   <p class="kicker">Skenirajte za meni</p>
   <div class="qr">{qr_svg}</div>
   <p class="hint">Uperite kameru telefona u kod<br>i otvorite meni — bez aplikacije.</p>
+  <p class="site">{SITE}</p>
   <p class="phone">{PHONE}</p>
 </div>'''
 
@@ -46,9 +48,10 @@ body {{ font-family: "Manrope", sans-serif; -webkit-print-color-adjust: exact; p
 .frame {{ position: absolute; inset: 5mm; border: 0.3mm solid rgba(156,195,177,.45); border-radius: 2.5mm; pointer-events: none; }}
 .logo {{ width: 42mm; }}
 .kicker {{ margin-top: 7mm; font-size: 8pt; letter-spacing: .32em; text-transform: uppercase; color: {SAGE}; font-weight: 700; }}
-.qr {{ margin-top: 4mm; width: 62mm; height: 62mm; padding: 5mm; background: {PAPER}; border-radius: 3mm; }}
+.qr {{ margin-top: 3.5mm; width: 56mm; height: 56mm; padding: 4.5mm; background: {PAPER}; border-radius: 3mm; }}
 .qr svg {{ width: 100%; height: 100%; display: block; }}
-.hint {{ margin-top: 5mm; font-size: 8.5pt; line-height: 1.5; color: rgba(246,241,231,.75); }}
+.hint {{ margin-top: 4mm; font-size: 8.5pt; line-height: 1.5; color: rgba(246,241,231,.75); }}
+.site {{ margin-top: 2.5mm; font-family: "Fraunces", serif; font-size: 13pt; }}
 .phone {{ margin-top: auto; font-family: "Fraunces", serif; font-size: 19pt; font-weight: 400; }}
 </style></head><body><div class="sheet">{card * 4}</div></body></html>'''
 out = ROOT / "kartica.html"
