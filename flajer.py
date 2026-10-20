@@ -17,7 +17,7 @@ QR_SVG = (ROOT / "docs" / "qr.svg").read_text(encoding="utf-8")
 
 # Orijentacione količine po osobi (grama) — PROVERITI SA VLASNIKOM pre štampe (meso/riba 350 g potvrdio vlasnik 2026-10-15)
 PLAN = [
-    ("Predjelo", 80, "g"),
+    ("Predjelo", 100, "g"),
     ("Finger food", 120, "g"),
     ("Meso ili riba", 350, "g"),
     ("Prilozi", 150, "g"),
