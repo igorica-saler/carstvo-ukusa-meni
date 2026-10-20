@@ -3,7 +3,7 @@ import pathlib, subprocess
 import qrcode, qrcode.constants
 
 ROOT = pathlib.Path(__file__).parent
-URL = "https://igorica-saler.github.io/carstvo-ukusa-meni/"
+URL = "https://carstvoukusa.rs/meni/"  # živi sajt od 2026-10-20 (ranije GitHub Pages)
 PHONE = "063/821-66-78"
 INK, PAPER, SAGE = "#1E3328", "#F6F1E7", "#9CC3B1"
 

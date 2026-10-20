@@ -25,4 +25,12 @@
 ## Kontakti (2026-10-15)
 - Mejl `carstvo.ukusa@gmail.com`, sajt `www.carstvoukusa.rs`, Instagram `@carstvoukusa`, Facebook `CarstvoUkusaCatering` — konstante `EMAIL`, `SITE`, `SITE_URL`, `INSTAGRAM(_URL)`, `FACEBOOK(_URL)` u `meni_data.py` (ne zvati `WEB` — sudara se sa `WEB = ROOT/'docs'` u build.py).
 - Prikazani: flajer flap (blok `.contact` ispod koraka 01–03, korak 02 = „Pozovite ili pišite nam"), katalog/QR meni hero (`.links` ispod dugmeta) i futer („Ili nam pišite" + `.links`). Na webu su linkovi, u PDF-u tekst.
-- Sajt `carstvoukusa.rs` još nije živ (novi sajt se gradi u `C:\dev\carstvo-ukusa`).
+- Sajt `carstvoukusa.rs` je ŽIV od 2026-10-20 (kod u `C:\dev\carstvo-ukusa`, hosting unlimited.rs).
+
+## QR → živi sajt (2026-10-20)
+- `URL` u `kartica.py` = `https://carstvoukusa.rs/meni/` (jelovnik na novom sajtu). Regenerisani: `docs/qr.svg`, `docs/qr.png`,
+  `QR kartica za sto (4 x A6).pdf`, oba flajer PDF-a (QR na zadnjoj korici) i katalog. Provera flajera OK.
+- Stari QR (GitHub Pages) i dalje radi: `build.py` u `docs/index.html` ubacuje skript koji na `*.github.io` preusmerava na
+  `https://carstvoukusa.rs/meni/` (lokalni print iz `file://` ne preusmerava). GitHub Pages meni je sada samo most — izvor
+  cena za sajt ostaje `meni_data.py` (`npm run menu` u sajtu).
+- Štampane kartice/flajeri pre ovog datuma nose stari QR — rade preko preusmerenja, ali za novu štampu koristiti nove PDF-ove.
