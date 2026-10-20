@@ -23,7 +23,7 @@
 - Sledeće: digitalna verzija flajera (korisnik najavio).
 
 ## Kontakti (2026-10-15)
-- Mejl `carstvo.ukusa@gmail.com` (ZVANIČNI, potvrdio korisnik 2026-10-20 — isti i na sajtu), sajt `carstvoukusa.rs` (bez www; na flajeru pod QR-om i uz telefon, na katalogu u heroju i futeru, na QR kartici), Instagram `@carstvoukusa`, Facebook `CarstvoUkusaCatering` — konstante `EMAIL`, `SITE`, `SITE_URL`, `INSTAGRAM(_URL)`, `FACEBOOK(_URL)` u `meni_data.py` (ne zvati `WEB` — sudara se sa `WEB = ROOT/'docs'` u build.py).
+- Mejl `carstvo.ukusa@gmail.com` (ZVANIČNI, potvrdio korisnik 2026-10-20 — isti i na sajtu), sajt `carstvoukusa.rs` (bez www; na flajeru pod QR-om i uz telefon, na katalogu u heroju i futeru, na QR kartici), Instagram `@carstvoukusa`, Facebook prikaz „Carstvo Ukusa" (link ostaje `facebook.com/CarstvoUkusaCatering`, korisnik 2026-10-20) — konstante `EMAIL`, `SITE`, `SITE_URL`, `INSTAGRAM(_URL)`, `FACEBOOK(_URL)` u `meni_data.py` (ne zvati `WEB` — sudara se sa `WEB = ROOT/'docs'` u build.py).
 - Prikazani: flajer flap (blok `.contact` ispod koraka 01–03, korak 02 = „Pozovite ili pišite nam"), katalog/QR meni hero (`.links` ispod dugmeta) i futer („Ili nam pišite" + `.links`). Na webu su linkovi, u PDF-u tekst.
 - Sajt `carstvoukusa.rs` je ŽIV od 2026-10-20 (kod u `C:\dev\carstvo-ukusa`, hosting unlimited.rs).
 

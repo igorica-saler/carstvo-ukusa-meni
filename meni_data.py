@@ -9,7 +9,7 @@ SITE = "carstvoukusa.rs"
 SITE_URL = "https://carstvoukusa.rs"
 INSTAGRAM = "@carstvoukusa"
 INSTAGRAM_URL = "https://www.instagram.com/carstvoukusa/"
-FACEBOOK = "CarstvoUkusaCatering"
+FACEBOOK = "Carstvo Ukusa"
 FACEBOOK_URL = "https://www.facebook.com/CarstvoUkusaCatering/"
 
 # (naziv, opis, cena, jedinica, oznaka)
