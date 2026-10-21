@@ -15,11 +15,11 @@ HAIR = "rgba(30,51,40,.22)"
 BLEED = 3 if "--bleed" in sys.argv else 0
 QR_SVG = (ROOT / "docs" / "qr.svg").read_text(encoding="utf-8")
 
-# Orijentacione količine po osobi (grama) — PROVERITI SA VLASNIKOM pre štampe (meso/riba 350 g potvrdio vlasnik 2026-10-15)
+# Orijentacione količine po osobi (grama) — PROVERITI SA VLASNIKOM pre štampe (meso/riba 250 g — korisnik 2026-10-21, usklađeno sa sajtom; ranije 350)
 PLAN = [
     ("Predjelo", 100, "g"),
     ("Finger food", 120, "g"),
-    ("Meso ili riba", 350, "g"),
+    ("Meso ili riba", 250, "g"),
     ("Prilozi", 150, "g"),
     ("Salate", 150, "g"),
     ("Pecivo", 2, "kom"),
