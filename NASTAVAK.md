@@ -19,7 +19,7 @@
 - `python provera_flajera.py` — proverava da unutrašnji paneli ne prelivaju (exit 1 = preliva).
 - Format: A4 vodoravno, **roll fold** 100 | 100 | 97 mm. Spolja: flap (Koliko treba?) | zadnja (QR) | prednja (vaga). Unutra: 01–02 | 03–05 | 06–08.
 - Koncept v2 „Vaga" (2026-10-14, redizajn po briefu „state of the art, ne sme ličiti na AI"): sve je po kilogramu → skala kuhinjske vage 0–1 kg na naslovnoj (SVG, `dial()`), pravi milimetarski lenjir 0–29 cm uz gornju ivicu unutrašnjosti (`ruler()`, štampa 1:1), tabela „Koliko treba?" za 10/30/50 gostiju na flapu (`PLAN`, `plan_table()`). Tipografija: Newsreader (nazivi, naslovi) + Schibsted Grotesk (cene, opisi), bez tačkastih vođica, tanke linije između redova. Boje nepromenjene: zelena INK + terakota, krem papir.
-- `PLAN` (grama po osobi: predjelo **100** (vlasnik 2026-10-20), finger food 120, meso/riba **250** (korisnik 2026-10-21, isto kao na sajtu; ranije 350), prilozi 150, salate 150, pecivo 2 kom) — ostale vrednosti su i dalje pretpostavka. Menja se samo u `flajer.py`.
+- `PLAN` (grama po osobi: predjelo **100** (vlasnik 2026-10-20), finger food 120, meso/riba **350** (vlasnik 2026-10-15, potvrđeno 2026-10-21; sajt usklađen na 350), prilozi 150, salate 150, pecivo 2 kom) — ostale vrednosti su i dalje pretpostavka. Menja se samo u `flajer.py`.
 - v1 (karirani stolnjak, Fraunces/Manrope) je u git istoriji: commit 953fb10.
 - Za štampariju: 2/2 boje, papir 170–200 g mat, bleed 3 mm, roll fold (unutrašnji panel 97 mm). Referentni skenovi u `skenirani flyer/`.
 - Sledeće: digitalna verzija flajera (korisnik najavio).
