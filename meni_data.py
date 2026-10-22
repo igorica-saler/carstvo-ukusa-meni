@@ -62,7 +62,7 @@ SECTIONS = [
         ("Pileći štapići u susamu", "", 1800, KG, ""),
     ]),
     ("Riblji specijalitet", "Sa žara i iz tiganja", [
-        ("Oslić orli / oslić na žaru", "", 1200, KG, ""),
+        ("Panirani oslić / oslić na žaru", "", 1200, KG, ""),
         ("Skuša na žaru", "", 1600, KG, ""),
         ("Pastrmka na žaru", "", 1800, KG, ""),
         ("Dimljena pastrmka fileti", "", 2800, KG, ""),
