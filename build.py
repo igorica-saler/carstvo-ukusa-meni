@@ -73,3 +73,40 @@ if SITE_PDF.parent.exists():
     shutil.copy(pdf, SITE_PDF)
     print("SAJT:", SITE_PDF, "(posle toga: npm run build + prenos out/ na server)")
 print("PDF:", pdf)
+
+# Verzija za štampariju: ista A4 strana + 3 mm bleed sa svih strana (pozadina produžena rubnim pikselima)
+# + crop marke u uglovima, kao kod flajera. Trim = 210 x 297, list = 216 x 303 mm.
+import pymupdf  # noqa: E402
+
+BLEED = 3
+MM = 72 / 25.4
+src = pymupdf.open(pdf)
+dst = pymupdf.open()
+for page in src:
+    w, h = page.rect.width, page.rect.height
+    b = BLEED * MM
+    out_pg = dst.new_page(width=w + 2 * b, height=h + 2 * b)
+    e = 0.3  # širina rubne trake (pt) koja se razvlači preko bleed zone
+    edges = [  # (isečak strane u pt, odredište na listu u pt)
+        ((0, 0, w, e), (b, 0, b + w, b)), ((0, h - e, w, h), (b, b + h, b + w, 2 * b + h)),      # gore, dole
+        ((0, 0, e, h), (0, b, b, b + h)), ((w - e, 0, w, h), (b + w, b, 2 * b + w, b + h)),      # levo, desno
+        ((0, 0, e, e), (0, 0, b, b)), ((w - e, 0, w, e), (b + w, 0, 2 * b + w, b)),              # uglovi
+        ((0, h - e, e, h), (0, b + h, b, 2 * b + h)), ((w - e, h - e, w, h), (b + w, b + h, 2 * b + w, 2 * b + h)),
+    ]
+    o = 1  # trake ulaze 1 pt ispod sadržaja strane (koji se crta preko) — bez šava na liniji reza
+    for clip, (x0, y0, x1, y1) in edges:
+        strip = page.get_pixmap(dpi=300, clip=pymupdf.Rect(*clip))
+        rect = pymupdf.Rect(x0 - (o if x0 >= b + w else 0), y0 - (o if y0 >= b + h else 0),
+                            x1 + (o if x1 <= b else 0), y1 + (o if y1 <= b else 0))
+        out_pg.insert_image(rect, pixmap=strip, keep_proportion=False)
+    out_pg.show_pdf_page(pymupdf.Rect(b, b, b + w, b + h), src, page.number)  # vektorski sadržaj, bez rasterizacije
+    # crop marke: 2 mm dugačke, 1 mm od trim linije, van trim zone
+    for x in (b, b + w):
+        for y in (b, b + h):
+            ty = (y - b, y - 1 * MM) if y == b else (y + 1 * MM, y + b)
+            tx = (x - b, x - 1 * MM) if x == b else (x + 1 * MM, x + b)
+            out_pg.draw_line((x, ty[0]), (x, ty[1]), color=(0, 0, 0), width=0.15 * MM)
+            out_pg.draw_line((tx[0], y), (tx[1], y), color=(0, 0, 0), width=0.15 * MM)
+print_pdf = ROOT / "Katalog Carstvo Ukusa 2026 - za stampu (bleed 3mm).pdf"
+dst.save(print_pdf, garbage=3, deflate=True)
+print("PDF (štampa):", print_pdf)

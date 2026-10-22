@@ -41,3 +41,5 @@
 
 ## 2026-10-22
 - Nazivi (vlasnik): „Sendvič u domaćoj puter kroasan kifli", „Kroasan puter kifle", „Panirani bakalar, panirani kolutići lignje, panirani losos" — samo u `meni_data.py`; regenerisani flajer (oba PDF-a), katalog, QR meni i sajt (id u `lib/engine/suggest.ts` sajta promenjen na `pecivo--kroasan-puter-kifle`). Objavljeno na carstvoukusa.rs.
+
+- 2026-10-22: `build.py` pravi i **`Katalog Carstvo Ukusa 2026 - za stampu (bleed 3mm).pdf`** (216×303 mm, 6 strana): A4 katalog + 3 mm bleed (pozadina produžena rubnim pikselima strane, pymupdf) + crop marke kao na flajeru. Sadržaj ostaje vektorski. Za štampariju slati taj fajl; običan „novi dizajn" PDF je za ekran/sajt.
