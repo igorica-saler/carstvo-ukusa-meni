@@ -38,3 +38,6 @@
 - Štampane kartice/flajeri pre ovog datuma nose stari QR — rade preko preusmerenja, ali za novu štampu koristiti nove PDF-ove.
 - 2026-10-20: `build.py` kopira katalog PDF i u `C:/dev/carstvo-ukusa/frontend/public/katalog-carstvo-ukusa-2026.pdf`
   (dugme „Preuzmi jelovnik (PDF)" na sajtu /meni/). Posle izmene menija: `python build.py` → u sajtu `npm run build` + prenos `out/`.
+
+## 2026-10-22
+- Nazivi (vlasnik): „Sendvič u domaćoj puter kroasan kifli", „Kroasan puter kifle", „Panirani bakalar, panirani kolutići lignje, panirani losos" — samo u `meni_data.py`; regenerisani flajer (oba PDF-a), katalog, QR meni i sajt (id u `lib/engine/suggest.ts` sajta promenjen na `pecivo--kroasan-puter-kifle`). Objavljeno na carstvoukusa.rs.
